@@ -18,34 +18,35 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
-    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer)
-    {
-        configurer.enable();
-    }
+	public void configureDefaultServletHandling(
+			final DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
 
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
-    }
-    
-    @Bean
-    public TilesConfigurer tilesConfigurer() {
-        final TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(new String[]{"/WEB-INF/tiles/tiles.xml"});
-        return tilesConfigurer;
-    }
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations(
+				"/WEB-INF/static/");
+	}
 
-    @Bean
-    public TilesViewResolver tilesViewResolver() {
-        return new TilesViewResolver();
-    }
+	@Bean
+	public TilesConfigurer tilesConfigurer() {
+		final TilesConfigurer tilesConfigurer = new TilesConfigurer();
+		tilesConfigurer
+				.setDefinitions(new String[] { "/WEB-INF/tiles/tiles.xml" });
+		return tilesConfigurer;
+	}
 
-    @Bean
-    public InternalResourceViewResolver configureInternalResourceViewResolver()
-    {
-        final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/tiles/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
+	@Bean
+	public TilesViewResolver tilesViewResolver() {
+		return new TilesViewResolver();
+	}
+
+	@Bean
+	public InternalResourceViewResolver configureInternalResourceViewResolver() {
+		final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/tiles/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
 }

@@ -1,9 +1,9 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:url var="jqueryUrl" value="/static/js/jquery.min.1.10.2.js" />
 <c:url var="bootstrapJsUrl" value="/static/js/bootstrap.min.3.0.2.js" />
-<c:url var="bootstrapCssUrl" value="/static/css/bootstrap.min.3.0.2-cosmo.css" />
+<c:url var="bootstrapCssUrl" value="/static/css/bootstrap.min.3.0.2-flatly.css" />
 <c:url var="fontAwesomeUrl" value="/static/css/font-awesome/css/font-awesome.min.css" />
 
 <!DOCTYPE html>
