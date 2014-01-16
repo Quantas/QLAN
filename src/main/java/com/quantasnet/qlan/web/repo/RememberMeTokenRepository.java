@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.quantasnet.qlan.web.domain.RememberMeToken;
 
-public interface RememberMeTokenRepository extends JpaRepository<RememberMeToken, Long> {
+public interface RememberMeTokenRepository extends JpaRepository<RememberMeToken, String> {
 	@Modifying
     @Query("UPDATE RememberMeToken r SET r.token = ?1, r.lastUsed = ?2 WHERE r.series = ?3")
     void updateToken(String token, Date lastUsed, String series);
