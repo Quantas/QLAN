@@ -2,10 +2,10 @@ package com.quantasnet.qlan.web.service;
 
 import java.util.Set;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Sets;
 import com.quantasnet.qlan.web.domain.Lan;
 import com.quantasnet.qlan.web.repo.LanRepository;
 
@@ -26,7 +26,7 @@ public class LanServiceImpl implements LanService {
 
 	@Override
 	public Set<Lan> getFutureLans() {
-		return Sets.newLinkedHashSet();
+		return lanRepository.findByStartGreaterThan(DateTime.now());
 	}
 	
 	@Override

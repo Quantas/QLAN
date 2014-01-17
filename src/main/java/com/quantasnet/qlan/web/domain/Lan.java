@@ -30,11 +30,11 @@ public class Lan extends QlanDomainBase {
 	@Column(name = "lan_location")
 	private String location;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name = "lan_start")
 	private DateTime start;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name = "lan_end")
 	private DateTime end;
 
