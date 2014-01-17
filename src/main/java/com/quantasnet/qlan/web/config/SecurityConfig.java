@@ -35,12 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+		http.authorizeRequests()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/404", "/500").permitAll()
 				.antMatchers("/user/signup").permitAll()
-				.antMatchers("/user/save").permitAll().antMatchers("/denied")
-				.permitAll().antMatchers("/login").permitAll()
-				.antMatchers("/logout").permitAll().antMatchers("/")
-				.permitAll().anyRequest().authenticated();
+				.antMatchers("/user/save").permitAll()
+				.antMatchers("/denied").permitAll()
+				.antMatchers("/login").permitAll()
+				.antMatchers("/logout").permitAll()
+				.antMatchers("/").permitAll()
+				.anyRequest().authenticated();
 
 		http.exceptionHandling().accessDeniedPage("/denied");
 

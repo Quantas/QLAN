@@ -59,7 +59,7 @@
 		    			${failureStatus}
 		    		</div>
 		    	</c:if>
-                <tiles:insertAttribute name="body" />
+               	<tiles:insertAttribute name="body" />
             </div>
             <div id="bottom">
                 <tiles:insertAttribute name="footer" />

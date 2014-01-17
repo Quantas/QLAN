@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(value = "com.quantasnet.qlan", useDefaultFilters = false, includeFilters = @ComponentScan.Filter(value = Controller.class))
+@ComponentScan(value = "com.quantasnet.qlan", useDefaultFilters = false, includeFilters = { @ComponentScan.Filter(value = Controller.class), @ComponentScan.Filter(value = ControllerAdvice.class) })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override

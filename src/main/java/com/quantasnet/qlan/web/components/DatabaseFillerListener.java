@@ -30,29 +30,34 @@ public class DatabaseFillerListener implements ApplicationListener<ContextRefres
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent contextRefreshedEvent)
     {
-        final List<Role> roles = roleService.findAll();
-
-        if (roles.isEmpty())
-        {
-            // create roles
-            final Set<Role> rolesAll = new HashSet<Role>();
-            final Set<Role> rolesUser = new HashSet<Role>();
-
-            final Role user = roleService.save("ROLE_USER");
-            final Role admin = roleService.save("ROLE_ADMIN");
-
-            rolesAll.add(user);
-            rolesAll.add(admin);
-
-            rolesUser.add(user);
-
-            // create users
-            userService.save("admin", "Admin", "Administrator", "admin@test.com", "admin", rolesAll);
-            userService.save("user", "User", "Userton", "user@test.com", "user", rolesUser);
-        }
-        else
-        {
-            log.info("DB already populated");
+    	try {
+	        final List<Role> roles = roleService.findAll();
+	
+	        if (roles.isEmpty())
+	        {
+	            // create roles
+	            final Set<Role> rolesAll = new HashSet<Role>();
+	            final Set<Role> rolesUser = new HashSet<Role>();
+	
+	            final Role user = roleService.save("ROLE_USER");
+	            final Role admin = roleService.save("ROLE_ADMIN");
+	
+	            rolesAll.add(user);
+	            rolesAll.add(admin);
+	
+	            rolesUser.add(user);
+	
+	            // create users
+	            userService.save("admin", "Admin", "Administrator", "admin@test.com", "admin", rolesAll);
+	            userService.save("user", "User", "Userton", "user@test.com", "user", rolesUser);
+	        }
+	        else
+	        {
+	            log.info("DB already populated");
+	        }
+    	}
+        catch(final Exception e) {
+        	log.error("Error filling the database", e);
         }
     }
 }

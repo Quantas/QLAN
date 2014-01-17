@@ -27,23 +27,6 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-        	<security:authorize access="isAuthenticated()">
-		        <li class="dropdown">
-		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                <img src="https://www.gravatar.com/avatar/${user.gravatarHash}?r=pg&d=identicon&s=20" />
-		                &nbsp;&nbsp;${user.firstName}&nbsp;${user.lastName}
-		                <b class="caret"></b>
-		            </a>
-		            <ul class="dropdown-menu">
-		            	<li>
-		                    <a id="profileLink" href="${profileUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Profile</a>
-		                </li>
-		                <li>
-		                    <a id="logoutLink" href="#"><i class="fa fa-sign-out fa-fw"></i>&nbsp;&nbsp;Logout</a>
-		                </li>
-		            </ul>
-		        </li>
-	        </security:authorize>
             <security:authorize access="permitAll() && !isAuthenticated()">
                 <li><a href="${loginUrl}"><i class="fa fa-sign-in fa-fw"></i>&nbsp;&nbsp;Login</a></li>
                 <li><a href="${signupUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Sign Up</a></li>
@@ -65,6 +48,23 @@
                     </ul>
                 </li>
             </security:authorize>
+            <security:authorize access="isAuthenticated()">
+		        <li class="dropdown">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                <img src="https://www.gravatar.com/avatar/${user.gravatarHash}?r=pg&d=identicon&s=20" />
+		                &nbsp;&nbsp;${user.firstName}&nbsp;${user.lastName}
+		                <b class="caret"></b>
+		            </a>
+		            <ul class="dropdown-menu">
+		            	<li>
+		                    <a id="profileLink" href="${profileUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Profile</a>
+		                </li>
+		                <li>
+		                    <a id="logoutLink" href="#"><i class="fa fa-sign-out fa-fw"></i>&nbsp;&nbsp;Logout</a>
+		                </li>
+		            </ul>
+		        </li>
+	        </security:authorize>
         </ul>
     </div>
 </nav>
