@@ -20,7 +20,6 @@
                 <div style="color: red">
                 	<form:errors path="*" />
                 </div>
-                <form:hidden path="id" />
                 <form:input id="name" path="name" cssClass="form-control input-lg" placeholder="LAN Name" />
                 <form:input id="location" path="location" cssClass="form-control input-lg" placeholder="Location" />
 			  	<div class="form-group">

@@ -38,7 +38,7 @@
                     	<security:authorize url="/admin/users">
                             <li><a href="${usersUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Users</a></li>
                         </security:authorize>
-                        <security:authorize url="/status/sessions">
+                        <security:authorize url="/admin/setup/lans">
                             <li><a href="${lansUrl}"><i class="fa fa-signal fa-fw"></i>&nbsp;&nbsp;LANs</a></li>
                         </security:authorize>
                     </ul>
