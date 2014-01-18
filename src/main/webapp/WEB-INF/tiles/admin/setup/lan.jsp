@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<c:url var="saveUrl" value="/admin/setup/newlan/save" />
+<c:url var="updateUrl" value="/admin/setup/lan/update" />
 <c:url var="momentJsUrl" value="/static/js/moment.min.js" />
 <c:url var="bootstrapDateTimeJsUrl" value="/static/js/bootstrap-datetimepicker.min.js" />
 <c:url var="bootstrapDateTimeCssUrl" value="/static/css/bootstrap-datetimepicker.min.css" />
 
 <tiles:insertDefinition name="baseLayout">
-    <tiles:putAttribute name="title">New LAN</tiles:putAttribute>
+    <tiles:putAttribute name="title">Edit LAN</tiles:putAttribute>
     <tiles:putAttribute name="head">
     	<script type="text/javascript" src="${momentJsUrl}"></script>
     	<script type="text/javascript" src="${bootstrapDateTimeJsUrl}"></script>
@@ -15,11 +15,12 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
         <div class="container" style="width: 500px">
-            <form:form modelAttribute="lan" method="post" action="${saveUrl}" cssClass="form-signin" role="form">
-                <h2 class="form-signin-heading">New LAN</h2>
+            <form:form modelAttribute="lan" method="post" action="${updateUrl}" cssClass="form-signin" role="form">
+                <h2 class="form-signin-heading">Edit LAN</h2>
                 <div style="color: red">
                 	<form:errors path="*" />
                 </div>
+                <form:hidden path="id" />
                 <form:input id="name" path="name" cssClass="form-control input-lg" placeholder="LAN Name" />
                 <form:input id="location" path="location" cssClass="form-control input-lg" placeholder="Location" />
 			  	<div class="form-group">
@@ -44,8 +45,6 @@
         <br />
         <script type="text/javascript">
 		  $(function() {
-			$('#start').val('');
-			$('#end').val('');
 		    $('#startPicker').datetimepicker();
 		    $('#endPicker').datetimepicker();
 		  });

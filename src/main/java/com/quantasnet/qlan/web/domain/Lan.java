@@ -43,6 +43,9 @@ public class Lan extends QlanDomainBase {
 	
 	@ManyToMany(targetEntity = Tournament.class, fetch = FetchType.EAGER)
 	private Set<Tournament> tournaments;
+	
+	@ManyToMany(targetEntity = Server.class, fetch = FetchType.EAGER)
+	private Set<Server> servers;
 
 	public Long getId() {
 		return id;
@@ -98,5 +101,13 @@ public class Lan extends QlanDomainBase {
 
 	public void setTournaments(Set<Tournament> tournaments) {
 		this.tournaments = tournaments;
+	}
+
+	public Set<Server> getServers() {
+		return servers;
+	}
+
+	public void setServers(Set<Server> servers) {
+		this.servers = servers;
 	}
 }

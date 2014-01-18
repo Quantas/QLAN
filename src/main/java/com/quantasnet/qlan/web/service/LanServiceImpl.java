@@ -5,10 +5,12 @@ import java.util.Set;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.quantasnet.qlan.web.domain.Lan;
 import com.quantasnet.qlan.web.repo.LanRepository;
 
+@Transactional
 @Service
 public class LanServiceImpl implements LanService {
 
@@ -20,8 +22,8 @@ public class LanServiceImpl implements LanService {
 	}
 	
 	@Override
-	public Lan getActiveLan() {
-		return null;
+	public Set<Lan> getActiveLans() {
+		return lanRepository.findCurrent(DateTime.now());
 	}
 
 	@Override

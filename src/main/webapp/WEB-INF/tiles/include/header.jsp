@@ -9,8 +9,7 @@
 
 <c:url var="profileUrl" value="/profile" />
 <c:url var="usersUrl" value="/admin/users" />
-<c:url var="statusUrl" value="/status" />
-<c:url var="sessionsUrl" value="/status/sessions" />
+<c:url var="lansUrl" value="/admin/setup/lans" />
 
 <security:authentication var="user" property="principal" />
 
@@ -40,10 +39,7 @@
                             <li><a href="${usersUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Users</a></li>
                         </security:authorize>
                         <security:authorize url="/status/sessions">
-                            <li><a href="${sessionsUrl}"><i class="fa fa-signal fa-fw"></i>&nbsp;&nbsp;Sessions</a></li>
-                        </security:authorize>
-                        <security:authorize url="/status">
-                            <li><a href="${statusUrl}"><i class="fa fa-dashboard fa-fw"></i>&nbsp;&nbsp;Status</a></li>
+                            <li><a href="${lansUrl}"><i class="fa fa-signal fa-fw"></i>&nbsp;&nbsp;LANs</a></li>
                         </security:authorize>
                     </ul>
                 </li>
