@@ -20,8 +20,12 @@ public class PersistentTokenRepositoryImpl implements PersistentTokenRepository 
 	
 	private static final Logger LOG = LoggerFactory.getLogger(PersistentTokenRepositoryImpl.class);
 
+	private final RememberMeTokenRepository rememberMeTokenRepository;
+	
 	@Autowired
-	private RememberMeTokenRepository rememberMeTokenRepository;
+	public PersistentTokenRepositoryImpl(final RememberMeTokenRepository rememberMeTokenRepository) {
+		this.rememberMeTokenRepository = rememberMeTokenRepository;
+	}
 
 	@Override
 	public void createNewToken(final PersistentRememberMeToken token) {

@@ -17,11 +17,14 @@ import com.quantasnet.qlan.repo.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+	private final UserFactory userFactory;
 
 	@Autowired
-	private UserFactory userFactory;
+	public UserServiceImpl(final UserRepository userRepository, final UserFactory userFactory) {
+		this.userRepository = userRepository;
+		this.userFactory = userFactory;
+	}
 
 	@Override
 	public List<User> getAllUsers() {

@@ -21,9 +21,13 @@ import com.quantasnet.qlan.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
 
+	@Autowired
+	public UserController(final UserService userService) {
+		this.userService = userService;
+	}
+	
 	@RequestMapping("/signup")
 	public String signup(final Model model) {
 		model.addAttribute("user", new User());

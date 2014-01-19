@@ -17,11 +17,14 @@ public class UpdateSteamProfilesJob {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(UpdateSteamProfilesJob.class);
 	
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
+	private final SteamAPI steamAPI;
 	
 	@Autowired
-	private SteamAPI steamAPI;
+	public UpdateSteamProfilesJob(final UserService userService, final SteamAPI steamAPI) {
+		this.userService = userService;
+		this.steamAPI = steamAPI;
+	}
 	
 	/*
 	 * Every 5 Minutes

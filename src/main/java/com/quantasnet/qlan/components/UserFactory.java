@@ -14,12 +14,13 @@ import com.quantasnet.qlan.domain.User;
 @Component
 public class UserFactory {
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private SteamAPI steamAPI;
+	private final PasswordEncoder passwordEncoder;
 
+	@Autowired
+	public UserFactory(final PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+	
 	public User make(final String userName, final String firstName,
 			final String lastName, final String email, final String password,
 			final Set<Role> roles) {

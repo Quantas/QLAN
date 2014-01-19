@@ -13,8 +13,7 @@ import com.quantasnet.qlan.config.WebConfig;
 /**
  * @author andrewlandsverk
  */
-public class WebAppInitializer extends
-		AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -32,8 +31,7 @@ public class WebAppInitializer extends
 	}
 
 	@Override
-	protected void customizeRegistration(
-			final ServletRegistration.Dynamic registration) {
+	protected void customizeRegistration(final ServletRegistration.Dynamic registration) {
 		registration.setInitParameter("dispatchOptionsRequest", "true");
 		registration.setAsyncSupported(true);
 	}

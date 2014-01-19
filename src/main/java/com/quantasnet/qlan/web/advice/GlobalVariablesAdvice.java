@@ -12,7 +12,7 @@ import com.quantasnet.qlan.web.editors.DateTimeEditor;
 public class GlobalVariablesAdvice {
 
 	@InitBinder
-	protected void initBinder(final WebDataBinder binder) {
+	public void initBinder(final WebDataBinder binder) {
 	    binder.registerCustomEditor(DateTime.class, new DateTimeEditor());
 	}
 }

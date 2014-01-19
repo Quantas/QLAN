@@ -14,10 +14,14 @@ import com.quantasnet.qlan.repo.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService
 {
-	@Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Override
+	@Autowired
+    public RoleServiceImpl(final RoleRepository roleRepository) {
+		this.roleRepository = roleRepository;
+	}
+
+	@Override
     public List<Role> findAll()
     {
         final Iterable<Role> roles = roleRepository.findAll();

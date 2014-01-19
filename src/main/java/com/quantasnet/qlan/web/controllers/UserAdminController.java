@@ -26,8 +26,12 @@ public class UserAdminController {
 	
 	private final Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
+	private final UserService userService;
+	
 	@Autowired
-	private UserService userService;
+	public UserAdminController(final UserService userService) {
+		this.userService = userService;
+	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String users(final Model model) {

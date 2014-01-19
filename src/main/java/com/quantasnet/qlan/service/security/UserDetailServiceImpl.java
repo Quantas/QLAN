@@ -13,8 +13,12 @@ import com.quantasnet.qlan.service.UserService;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 	
+	private final UserService userService;
+	
 	@Autowired
-	private UserService userService;
+	public UserDetailServiceImpl(final UserService userService) {
+		this.userService = userService;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(final String username)
