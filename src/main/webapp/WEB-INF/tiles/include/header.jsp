@@ -47,7 +47,7 @@
             <security:authorize access="isAuthenticated()">
 		        <li class="dropdown">
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                <img src="https://www.gravatar.com/avatar/${user.gravatarHash}?r=pg&d=identicon&s=20" />
+		                <img src="${user.imageUrl}" width="25"/>
 		                &nbsp;&nbsp;${user.firstName}&nbsp;${user.lastName}
 		                <b class="caret"></b>
 		            </a>

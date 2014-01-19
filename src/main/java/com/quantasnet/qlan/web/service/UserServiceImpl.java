@@ -3,11 +3,11 @@ package com.quantasnet.qlan.web.service;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.quantasnet.qlan.web.components.SteamAPI;
 import com.quantasnet.qlan.web.components.UserFactory;
 import com.quantasnet.qlan.web.domain.Role;
 import com.quantasnet.qlan.web.domain.User;
@@ -17,10 +17,10 @@ import com.quantasnet.qlan.web.repo.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Resource
+	@Autowired
 	private UserRepository userRepository;
 
-	@Resource
+	@Autowired
 	private UserFactory userFactory;
 
 	@Override
@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getUserByUserName(username);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public User getUserBySteamId(long id) {
+		return userRepository.getUserBySteamId(id);
+	}
+	
 	@Override
 	public User saveUser(final User user) {
 		if (null == userRepository.getUserByUserName(user.getUserName())) {
@@ -44,8 +50,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User saveOpenIdUser(final User user) {
-		return userRepository.saveAndFlush(user);
+	public User saveOpenIdUser(final SteamAPI.Profile profile) {
+		final User newUser = userFactory.makeSteamUser(profile);
+		return userRepository.saveAndFlush(newUser);
 	}
 
 	@Override

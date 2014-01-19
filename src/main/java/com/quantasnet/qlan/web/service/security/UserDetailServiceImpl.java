@@ -1,7 +1,6 @@
 package com.quantasnet.qlan.web.service.security;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +13,7 @@ import com.quantasnet.qlan.web.service.UserService;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 	
-	@Resource
+	@Autowired
 	private UserService userService;
 
 	@Override

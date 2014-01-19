@@ -54,11 +54,20 @@ public class User extends QlanDomainBase implements UserDetails {
 	@Column(name = "user_email", nullable = true, unique = true)
 	private String email;
 
-	@Column(name = "user_gravatar_hash")
-	private String gravatarHash;
+	@Column(name = "user_image_url", length = 255)
+	private String imageUrl;
 
-	@Column(name = "openid")
-	private boolean openId;
+	@Column(name = "steam")
+	private boolean steam;
+	
+	@Column(name = "steam_online")
+	private boolean steamOnline;
+	
+	@Column(name = "steam_current_game", nullable = true, length = 255)
+	private String steamGame;
+
+	@Column(name = "steam_id", nullable = true)
+	private Long steamId;
 	
 	@Column(name = "user_active", nullable = false)
 	private boolean active;
@@ -117,20 +126,44 @@ public class User extends QlanDomainBase implements UserDetails {
 		this.email = email;
 	}
 
-	public String getGravatarHash() {
-		return gravatarHash;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setGravatarHash(String gravatarHash) {
-		this.gravatarHash = gravatarHash;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
-	public boolean isOpenId() {
-		return openId;
+	public boolean isSteam() {
+		return steam;
 	}
 	
-	public void setOpenId(boolean openId) {
-		this.openId = openId;
+	public void setSteam(boolean steam) {
+		this.steam = steam;
+	}
+	
+	public boolean isSteamOnline() {
+		return steamOnline;
+	}
+	
+	public void setSteamOnline(boolean steamOnline) {
+		this.steamOnline = steamOnline;
+	}
+	
+	public void setSteamGame(String steamGame) {
+		this.steamGame = steamGame;
+	}
+	
+	public String getSteamGame() {
+		return steamGame;
+	}
+	
+	public void setSteamId(Long steamId) {
+		this.steamId = steamId;
+	}
+	
+	public Long getSteamId() {
+		return steamId;
 	}
 	
 	public boolean isActive() {

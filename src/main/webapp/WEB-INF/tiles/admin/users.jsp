@@ -30,6 +30,7 @@
                         <th class="left">First Name</th>
                         <th class="left">Last Name</th>
                         <th class="left">E-Mail</th>
+                        <th class="center">Steam</th>
                         <th class="center">Active</th>
                         <th class="center">&nbsp;</th>
                     </tr>
@@ -42,6 +43,16 @@
                             <td class="left">${user.firstName}</td>
                             <td class="left">${user.lastName}</td>
                             <td class="left">${user.email}</td>
+                            <td class="center">
+                            	<c:choose>
+							    	<c:when test="${user.steam}">
+							    		<i class="fa fa-check fa-fw"></i>
+							    	</c:when>
+							    	<c:otherwise>
+							    		<i class="fa fa-ban fa-fw"></i>
+							    	</c:otherwise>
+							    </c:choose>
+                           	</td>
                             <td class="center">
                             	<c:choose>
 							    	<c:when test="${user.active}">

@@ -1,14 +1,14 @@
 package com.quantasnet.qlan.web.service.security;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import com.quantasnet.qlan.web.components.SteamAPI;
 import com.quantasnet.qlan.web.domain.User;
 import com.quantasnet.qlan.web.service.UserService;
 
@@ -18,25 +18,26 @@ public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsSe
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private SteamAPI steamAPI;
+	
 	@Override
 	public UserDetails loadUserDetails(final OpenIDAuthenticationToken token) throws UsernameNotFoundException {
         return load(token);
     }
 
 	private User load(final OpenIDAuthenticationToken token) throws UsernameNotFoundException {
+		final String url = token.getIdentityUrl();
+		final long id = Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
+		final SteamAPI.Profile profile = steamAPI.getProfileForId(id);
 		
-		final User user = userService.getUserByUsername(token.getIdentityUrl());
-
+		final User user = userService.getUserBySteamId(id);
+		
 		if (null == user) {
-			final User newUser = new User();
-			newUser.setActive(true);
-			newUser.setUserName(token.getIdentityUrl());
-			newUser.setFirstName("Steam");
-			newUser.setLastName("User");
-			newUser.setEmail("steam_user@localhost.net");
-			newUser.setOpenId(true);
-			newUser.setPassword(UUID.randomUUID().toString());
-			return userService.saveOpenIdUser(newUser);
+			return userService.saveOpenIdUser(profile);
 		}
 
 		return user;

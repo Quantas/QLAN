@@ -1,8 +1,8 @@
 package com.quantasnet.qlan.web.controllers;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +21,7 @@ import com.quantasnet.qlan.web.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	@Resource
+	@Autowired
 	private UserService userService;
 
 	@RequestMapping("/signup")

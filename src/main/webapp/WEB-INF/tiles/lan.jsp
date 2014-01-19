@@ -22,18 +22,30 @@
    			<div class="panel-heading" style="text-align: center;">
    				<h1 class="panel-title">Attendees</h1>
    			</div>
-			<div class="panel-body" style="text-align: center;">
+			<div class="panel-body" style="text-align: left;">
 				<ul class="list-group">
 					<c:forEach var="user" items="${lan.users}">
-						<li class="list-group-item">${user.userName}</li>
+						<li class="list-group-item">
+							<c:if test="${user.steamOnline}">
+								<c:set var="border" value="border: 4px solid #6EBCFF" />
+							</c:if>
+							<c:if test="${!user.steamOnline}">
+								<c:set var="border" value="border: 4px solid #cccccc" />
+							</c:if>
+							<img src="${user.imageUrl}" width="30" style="${border}" />
+							&nbsp;&nbsp;
+							${user.userName}
+						</li>
 					</c:forEach>
 				</ul>
-				<c:if test="${!attending}">
-					<a href="${joinUrl}/${lan.id}" class="btn btn-default">Join</a>
-				</c:if>
-				<c:if test="${attending}">
-					<a href="${leaveUrl}/${lan.id}" class="btn btn-default">Leave</a>
-				</c:if>
+				<span style="text-align: center">
+					<c:if test="${!attending}">
+						<a href="${joinUrl}/${lan.id}" class="btn btn-default">Join</a>
+					</c:if>
+					<c:if test="${attending}">
+						<a href="${leaveUrl}/${lan.id}" class="btn btn-default">Leave</a>
+					</c:if>
+				</span>
 			</div>
 		</div>
 	</div>

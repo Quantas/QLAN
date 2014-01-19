@@ -6,4 +6,5 @@ import com.quantasnet.qlan.web.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User getUserByUserName(String userName);
+	User getUserBySteamId(long id);
 }
