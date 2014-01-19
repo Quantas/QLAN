@@ -1,4 +1,4 @@
-package com.quantasnet.qlan.components;
+package com.quantasnet.qlan.init;
 
 import java.util.logging.Level;
 import java.util.logging.LogManager;

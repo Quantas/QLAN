@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 
-import com.quantasnet.qlan.components.JavaLoggingSetup;
-
 @Configuration
 @ComponentScan(value = "com.quantasnet.qlan", excludeFilters = {
 		@ComponentScan.Filter(value = Controller.class),
@@ -15,8 +13,5 @@ import com.quantasnet.qlan.components.JavaLoggingSetup;
 @Import({ DataConfig.class })
 @EnableScheduling
 public class RootConfig {
-	
-	public RootConfig() {
-		JavaLoggingSetup.setup();
-	}
+	// nothing here yet, let's try to keep it that way
 }

@@ -15,6 +15,10 @@ import com.quantasnet.qlan.config.WebConfig;
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+	static {
+		JavaLoggingSetup.setup();
+	}
+	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class<?>[] { RootConfig.class, SecurityConfig.class };

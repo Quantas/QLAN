@@ -40,8 +40,7 @@ public class SteamAPI {
 			return steamServer;
 			
 		} catch (Exception e) {
-			LOG.error("Error in SteamAPI", e);
-			// this will fail a bunch I guess...
+			LOG.error("Error in SteamAPI - {}", e.getMessage());
 		}
 		
 		return null;
