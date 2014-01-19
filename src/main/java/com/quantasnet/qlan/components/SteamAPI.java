@@ -4,21 +4,50 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.quantasnet.qlan.domain.QlanDomainBase;
+import com.github.koraktor.steamcondenser.steam.servers.SourceServer;
+import com.quantasnet.qlan.domain.Server;
+import com.quantasnet.qlan.steam.api.SteamProfile;
+import com.quantasnet.qlan.steam.api.SteamServer;
 
 @Component
 public class SteamAPI {
+	private static final Logger LOG = LoggerFactory.getLogger(SteamAPI.class);
 	
 	private static final String API_KEY = "CDF6D9864BD56E1E2C6701E98D5EED51";
 	private static final String URL_PREFIX = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=";
 	
-	public Profile getProfileForId(final long id) {
+	public SteamServer getSourceServer(final Server server) {
+		try {
+			final SourceServer sourceServer = new SourceServer(server.getHostname(), server.getPort());
+			
+			final Map<String, Object> serverInfo = sourceServer.getServerInfo();
+			final int ping = sourceServer.getPing();
+
+			final SteamServer steamServer = new SteamServer();
+			steamServer.setPing(ping);
+			steamServer.setCurrentPlayers((byte) serverInfo.get("numberOfPlayers"));
+			steamServer.setMaxPlayers((byte) serverInfo.get("maxPlayers"));
+			steamServer.setName((String) serverInfo.get("serverName"));
+			return steamServer;
+			
+		} catch (Exception e) {
+			LOG.error("Error in SteamAPI", e);
+			// this will fail a bunch I guess...
+		}
+		
+		return null;
+	}
+	
+	public SteamProfile getProfileForId(final long id) {
 		try {
 			final URL url = new URL(URL_PREFIX + API_KEY + "&steamids=" + id);
 	        final URLConnection urlc = url.openConnection();
@@ -35,7 +64,7 @@ public class SteamAPI {
 			final JSONArray players = response.getJSONArray("players");
 			final JSONObject player = players.getJSONObject(0);
 			if (null != player) {
-				final Profile profile = new Profile();
+				final SteamProfile profile = new SteamProfile();
 				
 				try {
 					profile.setImageUrl(player.getString("avatarfull"));
@@ -74,53 +103,5 @@ public class SteamAPI {
 			
 		} 
 		return null;
-	}
-	
-	public static class Profile extends QlanDomainBase {
-		private static final long serialVersionUID = 3534647337121995251L;
-		
-		private String imageUrl;
-	    private int onlineState;
-	    private String realName;
-	    private String nickname;
-	    private long steamId64;
-	    private String gameName;
-	    
-		public String getImageUrl() {
-			return imageUrl;
-		}
-		public void setImageUrl(String imageUrl) {
-			this.imageUrl = imageUrl;
-		}
-		public int getOnlineState() {
-			return onlineState;
-		}
-		public void setOnlineState(int onlineState) {
-			this.onlineState = onlineState;
-		}
-		public String getRealName() {
-			return realName;
-		}
-		public void setRealName(String realName) {
-			this.realName = realName;
-		}
-		public String getNickname() {
-			return nickname;
-		}
-		public void setNickname(String nickname) {
-			this.nickname = nickname;
-		}
-		public long getSteamId64() {
-			return steamId64;
-		}
-		public void setSteamId64(long steamId64) {
-			this.steamId64 = steamId64;
-		}
-		public String getGameName() {
-			return gameName;
-		}
-		public void setGameName(String gameName) {
-			this.gameName = gameName;
-		}
 	}
 }

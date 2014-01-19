@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantasnet.qlan.domain.Lan;
 import com.quantasnet.qlan.domain.Server;
@@ -55,6 +56,7 @@ public class LanController {
 		model.addAttribute("percentLeft", percent);
 		model.addAttribute("attending", attending);
 		model.addAttribute("lan", lan);
+		model.addAttribute("newServer", new Server());
 		return "lan";
 	}
 	
@@ -100,18 +102,13 @@ public class LanController {
 		return "redirect:/lan/" + id;
 	}
 	
-	@RequestMapping("/server/add/{id}")
-	public String addServer(@PathVariable final long id) {
+	@RequestMapping(value = "/server/add/{id}", method = RequestMethod.POST)
+	public String addServer(final Server server, @PathVariable final long id) {
 		final Lan lan = lanRepository.findOne(id);
 		
 		if (null == lan) {
 			return "forward:/404";
 		}
-		
-		final Server server = new Server();
-		server.setGame("TF2");
-		server.setHostname("shark1");
-		server.setPort(27015);
 		
 		final Server newServer = serverRepository.saveAndFlush(server);
 		

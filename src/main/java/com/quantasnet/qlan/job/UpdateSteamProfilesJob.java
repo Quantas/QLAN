@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.quantasnet.qlan.components.SteamAPI;
 import com.quantasnet.qlan.domain.User;
 import com.quantasnet.qlan.service.UserService;
+import com.quantasnet.qlan.steam.api.SteamProfile;
 
 @Component
 public class UpdateSteamProfilesJob {
@@ -31,20 +32,18 @@ public class UpdateSteamProfilesJob {
 	 */
 	@Scheduled(fixedDelay = 300000)
 	public void updateProfiles() {
-		final List<User> users = userService.getAllUsers();
+		final List<User> users = userService.getAllSteamUsers();
 		
 		for (final User user : users) {
-			if (user.isSteam()) {
-				LOG.debug("Updating Steam Profile For - {}", user.getSteamId());
-				final SteamAPI.Profile profile = steamAPI.getProfileForId(user.getSteamId());
-				LOG.debug("Found Steam Profile  = {}", profile);
-				
-				user.setSteamGame(profile.getGameName());
-				user.setSteamOnline(profile.getOnlineState() == 0 ? false : true);
-				user.setUserName(profile.getNickname());
-				user.setImageUrl(profile.getImageUrl());
-				userService.update(user);
-			}
+			LOG.debug("Updating Steam Profile For - {}", user.getSteamId());
+			final SteamProfile profile = steamAPI.getProfileForId(user.getSteamId());
+			LOG.debug("Found Steam Profile  = {}", profile);
+			
+			user.setSteamGame(profile.getGameName());
+			user.setSteamOnline(profile.getOnlineState() == 0 ? false : true);
+			user.setUserName(profile.getNickname());
+			user.setImageUrl(profile.getImageUrl());
+			userService.update(user);
 		}
 	}
 }

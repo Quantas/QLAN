@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.quantasnet.qlan.components.SteamAPI;
 import com.quantasnet.qlan.components.UserFactory;
 import com.quantasnet.qlan.domain.Role;
 import com.quantasnet.qlan.domain.User;
 import com.quantasnet.qlan.repo.UserRepository;
+import com.quantasnet.qlan.steam.api.SteamProfile;
 
 @Transactional
 @Service
@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
+	}
+	
+	@Override
+	public List<User> getAllSteamUsers() {
+		return userRepository.findBySteam(Boolean.TRUE);
 	}
 
 	@Transactional(readOnly = true)
@@ -53,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User saveOpenIdUser(final SteamAPI.Profile profile) {
+	public User saveOpenIdUser(final SteamProfile profile) {
 		final User newUser = userFactory.makeSteamUser(profile);
 		return userRepository.saveAndFlush(newUser);
 	}

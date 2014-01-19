@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.quantasnet.qlan.components.SteamAPI;
 import com.quantasnet.qlan.domain.User;
 import com.quantasnet.qlan.service.UserService;
+import com.quantasnet.qlan.steam.api.SteamProfile;
 
 @Service
 public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
@@ -31,7 +32,7 @@ public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsSe
 	private User load(final OpenIDAuthenticationToken token) throws UsernameNotFoundException {
 		final String url = token.getIdentityUrl();
 		final long id = Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
-		final SteamAPI.Profile profile = steamAPI.getProfileForId(id);
+		final SteamProfile profile = steamAPI.getProfileForId(id);
 		
 		final User user = userService.getUserBySteamId(id);
 		

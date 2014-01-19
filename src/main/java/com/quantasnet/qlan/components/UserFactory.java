@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.quantasnet.qlan.domain.Role;
 import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.steam.api.SteamProfile;
 
 @Component
 public class UserFactory {
@@ -45,7 +46,7 @@ public class UserFactory {
 		return user;
 	}
 	
-	public User makeSteamUser(final SteamAPI.Profile profile) {
+	public User makeSteamUser(final SteamProfile profile) {
 		final User newUser = new User();
 		newUser.setActive(true);
 		newUser.setUserName(profile.getNickname());
