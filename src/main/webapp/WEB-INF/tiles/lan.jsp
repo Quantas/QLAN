@@ -27,7 +27,10 @@
 					<c:forEach var="user" items="${lan.users}">
 						<li class="list-group-item">
 							<c:if test="${user.steamOnline}">
-								<c:set var="border" value="border: 4px solid #6EBCFF" />
+								<c:set var="border" value="border: 4px solid #8dccff" />
+							</c:if>
+							<c:if test="${user.steamOnline and not empty user.steamGame}">
+								<c:set var="border" value="border: 4px solid #b3fc55" />
 							</c:if>
 							<c:if test="${!user.steamOnline}">
 								<c:set var="border" value="border: 4px solid #cccccc" />
