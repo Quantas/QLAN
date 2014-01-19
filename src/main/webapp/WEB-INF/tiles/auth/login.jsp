@@ -2,6 +2,8 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
+<c:url var="openIdUrl" value="/login/openid" />
+
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">Login</tiles:putAttribute>
     <tiles:putAttribute name="body">
@@ -28,6 +30,12 @@
                     <button id="submit" type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
                 </fieldset>
             </form:form>
+            <br />
+            <form action="${openIdUrl}" method="post" target="_top">
+            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            	<input id="openid_identifier" name="openid_identifier" maxlength="100" type="hidden" value="http://steamcommunity.com/openid" />
+            	<input type="image" src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png">
+            </form>
         </div>
         <br />
     </tiles:putAttribute>

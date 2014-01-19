@@ -157,6 +157,11 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${org.springframework.security.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-openid</artifactId>
+		    <version>${org.springframework.security.version}</version>
+		</dependency>
 		<!-- BEAN VALIDATION -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

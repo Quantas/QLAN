@@ -1,10 +1,9 @@
 package com.quantasnet.qlan.web.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.quantasnet.qlan.web.annotations.ErrorController;
-
-@ErrorController
+@Controller
 public class ApplicationErrorController {
 
 	@RequestMapping("/404")

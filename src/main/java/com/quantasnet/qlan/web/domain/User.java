@@ -29,33 +29,37 @@ public class User extends QlanDomainBase implements UserDetails {
 	private Long id;
 
 	@NotEmpty(message = "Username is required.")
-	@Size(min = 4, max = 20)
-	@Column(name = "user_name", nullable = false, unique = true)
+	@Size(min = 4, max = 255)
+	@Column(name = "user_name", nullable = false, unique = true, length = 255)
 	private String userName;
 
 	@NotEmpty(message = "Password is required.")
+	@Size(min = 8, max = 255)
 	@Pattern(regexp = "^(?=.*[0-9])(?=\\S+$).{8,}$", message = "Password must be at least 8 characters and contain a number.")
-	@Column(name = "user_password", nullable = false)
+	@Column(name = "user_password", nullable = true, length = 255)
 	private String password;
 
 	@NotEmpty(message = "First name is required.")
 	@Size(min = 2, max = 30)
-	@Column(name = "user_first_name", nullable = false)
+	@Column(name = "user_first_name", nullable = true)
 	private String firstName;
 
 	@NotEmpty(message = "Last name is required.")
 	@Size(min = 2, max = 30)
-	@Column(name = "user_last_name", nullable = false)
+	@Column(name = "user_last_name", nullable = true)
 	private String lastName;
 
 	@NotEmpty
 	@Email
-	@Column(name = "user_email", nullable = false, unique = true)
+	@Column(name = "user_email", nullable = true, unique = true)
 	private String email;
 
 	@Column(name = "user_gravatar_hash")
 	private String gravatarHash;
 
+	@Column(name = "openid")
+	private boolean openId;
+	
 	@Column(name = "user_active", nullable = false)
 	private boolean active;
 
@@ -121,6 +125,14 @@ public class User extends QlanDomainBase implements UserDetails {
 		this.gravatarHash = gravatarHash;
 	}
 
+	public boolean isOpenId() {
+		return openId;
+	}
+	
+	public void setOpenId(boolean openId) {
+		this.openId = openId;
+	}
+	
 	public boolean isActive() {
 		return active;
 	}

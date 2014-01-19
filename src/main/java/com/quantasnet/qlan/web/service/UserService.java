@@ -10,6 +10,7 @@ public interface UserService {
 	List<User> getAllUsers();
     User getUserByUsername(String username);
     User saveUser(User user);
+    User saveOpenIdUser(User user);
     User save(String userName, String firstName, String lastName, String email, String password, Set<Role> roles);
     void deleteUser(long id);
     void deactivateUser(long id);

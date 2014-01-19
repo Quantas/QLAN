@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -24,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
     private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private AuthenticationUserDetailsService<OpenIDAuthenticationToken> openIdUserDetailsService;
 
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
@@ -50,6 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.formLogin().loginPage("/login").permitAll();
 
+		// Allow for Steam OpenID logins
+		http.openidLogin().loginPage("/login").permitAll().authenticationUserDetailsService(openIdUserDetailsService);
+		
 		http.logout().logoutUrl("/logout").permitAll();
 		
 		http.rememberMe()

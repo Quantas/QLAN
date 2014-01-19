@@ -38,9 +38,14 @@ public class UserServiceImpl implements UserService {
 	public User saveUser(final User user) {
 		if (null == userRepository.getUserByUserName(user.getUserName())) {
 			final User returnUser = userFactory.make(user);
-			return userRepository.save(returnUser);
+			return userRepository.saveAndFlush(returnUser);
 		}
 		return null;
+	}
+	
+	@Override
+	public User saveOpenIdUser(final User user) {
+		return userRepository.saveAndFlush(user);
 	}
 
 	@Override

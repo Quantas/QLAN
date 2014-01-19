@@ -12,6 +12,11 @@ public class AuthController {
 	public String login() {
 		return "auth/login";
 	}
+	
+	@RequestMapping("/openlogin")
+	public String openlogin() {
+		return "auth/login";
+	}
 
 	@RequestMapping("/denied")
 	public String denied() {
