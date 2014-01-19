@@ -34,9 +34,11 @@ public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsSe
 		final long id = Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
 		final SteamProfile profile = steamAPI.getProfileForId(id);
 		
+		// check for existing user
 		final User user = userService.getUserBySteamId(id);
 		
 		if (null == user) {
+			// make new user
 			return userService.saveOpenIdUser(profile);
 		}
 

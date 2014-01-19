@@ -13,6 +13,13 @@
 
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">${lan.name}</tiles:putAttribute>
+    <tiles:putAttribute name="head">
+    	<style>
+    		.tooltip-inner {
+			    width: 300px;
+			}
+    	</style>
+    </tiles:putAttribute>
     <tiles:putAttribute name="body">
     <div class="col-md-12" style="text-align: center;">
     	<h1>Welcome to ${lan.name}</h1>
@@ -27,7 +34,13 @@
 			<div class="panel-body" style="text-align: left;">
 				<ul class="list-group">
 					<c:forEach var="user" items="${lan.users}">
-						<li class="list-group-item">
+						<c:if test="${not empty user.steamGame}" >
+							<c:set var="tooltipText" value="In Game - ${user.steamGame}" />
+						</c:if>
+						<c:if test="${empty user.steamGame}" >
+							<c:set var="tooltipText" value="Not In Game" />
+						</c:if>
+						<li class="steamTooltip list-group-item" data-toggle="tooltip"  data-placement="right" title="${tooltipText}">
 							<c:if test="${user.steamOnline}">
 								<c:set var="border" value="border: 4px solid #8dccff" />
 							</c:if>
@@ -169,7 +182,7 @@
 							</tr>
 							<tr>
 								<th>Steam Server</th>
-								<td>True <form:radiobutton path="steam" value="true" /> False <form:radiobutton path="steam" value="false" /> </td>
+								<td>Yes <form:radiobutton path="steam" value="true" /> No <form:radiobutton path="steam" value="false" /> </td>
 							</tr>
 							<tr>
 								<th>Game&nbsp;*</th>
@@ -189,5 +202,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+		$('.steamTooltip').tooltip();
+		</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

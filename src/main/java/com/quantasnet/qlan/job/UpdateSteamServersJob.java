@@ -33,14 +33,19 @@ public class UpdateSteamServersJob {
 		for (final Server server : servers) {
 			LOG.info("Querying Server {}", server.getId());
 			final SteamServer steamServer = steamAPI.getSourceServer(server);
-			if (null != steamServer) {
+			if (null == steamServer) {
+				server.setCurrentPlayers(0);
+				server.setMaxPlayers(0);
+				server.setPing(-1);
+				LOG.info("Server {} Offline", server.getId(), server);
+			} else {
 				server.setCurrentPlayers(steamServer.getCurrentPlayers());
 				server.setMaxPlayers(steamServer.getMaxPlayers());
 				server.setPing(steamServer.getPing());
 				server.setGame(steamServer.getName());
-				serverService.updateServer(server);
 				LOG.info("Server {} Successfully Updated = {}", server.getId(), server);
 			}
+			serverService.updateServer(server);
 		}
 	}
 }
