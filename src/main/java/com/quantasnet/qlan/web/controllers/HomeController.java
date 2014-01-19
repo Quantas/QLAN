@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.quantasnet.qlan.web.domain.Lan;
-import com.quantasnet.qlan.web.service.LanService;
+import com.quantasnet.qlan.domain.Lan;
+import com.quantasnet.qlan.service.LanService;
 
 @Controller
 public class HomeController {

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.quantasnet.qlan.web.domain.User;
-import com.quantasnet.qlan.web.service.UserService;
+import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.service.UserService;
 
 /**
  * Created by andrewlandsverk

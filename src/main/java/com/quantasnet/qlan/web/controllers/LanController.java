@@ -8,11 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.quantasnet.qlan.web.domain.Lan;
-import com.quantasnet.qlan.web.domain.Server;
-import com.quantasnet.qlan.web.domain.User;
-import com.quantasnet.qlan.web.repo.LanRepository;
-import com.quantasnet.qlan.web.repo.ServerRepository;
+import com.quantasnet.qlan.domain.Lan;
+import com.quantasnet.qlan.domain.Server;
+import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.repo.LanRepository;
+import com.quantasnet.qlan.repo.ServerRepository;
 
 @Controller
 @RequestMapping("/lan")

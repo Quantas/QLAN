@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.quantasnet.qlan.web.domain.User;
-import com.quantasnet.qlan.web.model.ModelConstants;
-import com.quantasnet.qlan.web.service.UserService;
+import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.model.ModelConstants;
+import com.quantasnet.qlan.service.UserService;
 
 @RequestMapping("/admin/users")
 @Controller
