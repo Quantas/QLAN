@@ -130,7 +130,7 @@
 						<tr>
 							<td>
 								<c:if test="${server.steam}">
-									<img src="${steamPng}" alt="Steam Server" />&nbsp;&nbsp;${server.game}
+									<a href="steam://connect/${server.hostname}:${server.port}"><img src="${steamPng}" alt="Steam Server" /></a>&nbsp;&nbsp;${server.game}
 								</c:if>
 								<c:if test="${!server.steam}">
 									${server.game}&nbsp;-&nbsp;${server.hostname}:${server.port}
