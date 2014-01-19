@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.quantasnet.qlan.web.domain.QlanDomainBase;
+
 @Component
 public class SteamAPI {
 	
@@ -74,8 +76,10 @@ public class SteamAPI {
 		return null;
 	}
 	
-	public static class Profile {
-	    private String imageUrl;
+	public static class Profile extends QlanDomainBase {
+		private static final long serialVersionUID = 3534647337121995251L;
+		
+		private String imageUrl;
 	    private int onlineState;
 	    private String realName;
 	    private String nickname;

@@ -3,6 +3,7 @@ package com.quantasnet.qlan.web.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 
 @Configuration
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 		@ComponentScan.Filter(value = Controller.class),
 		@ComponentScan.Filter(value = Configuration.class) })
 @Import({ DataConfig.class })
+@EnableScheduling
 public class RootConfig {
 	// nothing here yet
 }

@@ -61,7 +61,12 @@ public class UserServiceImpl implements UserService {
 			final Set<Role> roles) {
 		final User user = userFactory.make(userName, firstName, lastName,
 				email, password, roles);
-		return userRepository.save(user);
+		return userRepository.saveAndFlush(user);
+	}
+	
+	@Override
+	public User update(final User user) {
+		return userRepository.saveAndFlush(user);
 	}
 
 	@Override

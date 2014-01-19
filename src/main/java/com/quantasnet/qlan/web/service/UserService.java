@@ -14,6 +14,7 @@ public interface UserService {
     User saveUser(User user);
     User saveOpenIdUser(final SteamAPI.Profile profile);
     User save(String userName, String firstName, String lastName, String email, String password, Set<Role> roles);
+    User update(User user);
     void deleteUser(long id);
     void deactivateUser(long id);
     void activateUser(long id);
