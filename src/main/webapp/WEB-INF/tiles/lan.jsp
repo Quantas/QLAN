@@ -12,6 +12,8 @@
 
 <c:url var="steamPng" value="/static/images/steam.png" />
 
+<c:url var="lansharkPng" value="/static/images/lanshark-banner.png" />
+
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">${lan.name}</tiles:putAttribute>
     <tiles:putAttribute name="head">
@@ -23,9 +25,18 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
     <div class="col-md-12" style="text-align: center;">
-    	<h1>Welcome to ${lan.name}</h1>
-   	    <br />
-    	<br />
+    	<c:choose>
+	    	<c:when test="${lan.name == 'LANShark'}">
+    			<img src="${lansharkPng}" class="img-responsive" style="margin: 0 auto;" />
+	    		<br />
+	    		<br />
+	    	</c:when>
+	    	<c:otherwise>
+		    	<h1>Welcome to ${lan.name}</h1>
+		   	    <br />
+		    	<br />
+	    	</c:otherwise>
+    	</c:choose>
     </div>
 	<div class="col-md-3">
 		<div class="panel panel-primary">
