@@ -15,6 +15,8 @@ import com.quantasnet.qlan.steam.api.SteamProfile;
 @Service
 public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
     
+	private static final String STEAM_OPENID_URL = "http://steamcommunity.com/openid/id/";
+	
 	private final UserService userService;
 	private final SteamAPI steamAPI;
 	
@@ -31,17 +33,20 @@ public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsSe
 
 	private User load(final OpenIDAuthenticationToken token) throws UsernameNotFoundException {
 		final String url = token.getIdentityUrl();
-		final long id = Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
-		final SteamProfile profile = steamAPI.getProfileForId(id);
-		
-		// check for existing user
-		final User user = userService.getUserBySteamId(id);
-		
-		if (null == user) {
-			// make new user
-			return userService.saveOpenIdUser(profile);
+		if (url.startsWith(STEAM_OPENID_URL)) {
+			final long id = Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
+			final SteamProfile profile = steamAPI.getProfileForId(id);
+			
+			// check for existing user
+			final User user = userService.getUserBySteamId(id);
+			
+			if (null == user) {
+				// make new user
+				return userService.saveOpenIdUser(profile);
+			}
+	
+			return user;
 		}
-
-		return user;
+		throw new UsernameNotFoundException("Invalid OpenID Provider!");
 	}
 }
