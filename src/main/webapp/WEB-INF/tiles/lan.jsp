@@ -7,6 +7,7 @@
 <c:url var="joinUrl" value="/lan/join" />
 <c:url var="addEventUrl" value="/admin/setup/lan/tournament/add" />
 <c:url var="addServerUrl" value="/lan/server/add" />
+<c:url var="removeServerUrl" value="/admin/setup/lan/server/remove/" />
 <c:url var="leaveUrl" value="/lan/leave" />
 
 <c:url var="steamPng" value="/static/images/steam.png" />
@@ -125,6 +126,9 @@
 						<th>Server</th>
 						<th>Ping</th>
 						<th>Players</th>
+						<security:authorize url="/admin/setup/lan/server/remove/">
+							<th>&nbsp;</th>
+						</security:authorize>
 					</tr>
 					<c:forEach var="server" items="${lan.servers}">
 						<tr>
@@ -146,6 +150,9 @@
 									${server.currentPlayers}/${server.maxPlayers}
 								</c:if>
 							</td>
+							<security:authorize url="/admin/setup/lan/server/remove/">
+								<td><a href="${removeServerUrl}${lan.id}/${server.id}"><i class="fa fa-minus"></i></a></td>
+							</security:authorize>
 						</tr>
 					</c:forEach>
 				</table>
@@ -196,7 +203,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<form:button id="submit" name="submit" value="submit" class="btn btn-primary">Send</form:button>
+						<form:button id="submit" name="submit" value="submit" class="btn btn-primary">Create</form:button>
 					</div>
 				</form:form>
 				</div>

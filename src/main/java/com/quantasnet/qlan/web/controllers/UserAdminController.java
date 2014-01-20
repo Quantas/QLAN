@@ -78,4 +78,30 @@ public class UserAdminController {
 		
 		return USERS_REDIRECT;
 	}
+	
+	@RequestMapping(value = "/makeadmin/{userId}", method = RequestMethod.GET)
+	public String makeAdmin(@PathVariable final long userId, final RedirectAttributes redirectAttributes, final Model model) {
+		try {
+			userService.makeAdmin(userId);
+			redirectAttributes.addFlashAttribute(ModelConstants.SUCCESS_STATUS, "User " + userId + " was made an Admin.");
+		} catch (DataAccessException dae) {
+			redirectAttributes.addFlashAttribute(ModelConstants.FAILURE_STATUS, "User " + userId + " was not made an Admin.");
+			logger.error("Error making user an admin {}", userId, dae);
+		}
+		
+		return USERS_REDIRECT;
+	}
+	
+	@RequestMapping(value = "/revokeadmin/{userId}", method = RequestMethod.GET)
+	public String revokeAdmin(@PathVariable final long userId, final RedirectAttributes redirectAttributes, final Model model) {
+		try {
+			userService.revokeAdmin(userId);
+			redirectAttributes.addFlashAttribute(ModelConstants.SUCCESS_STATUS, "User " + userId + " had Admin revoked.");
+		} catch (DataAccessException dae) {
+			redirectAttributes.addFlashAttribute(ModelConstants.FAILURE_STATUS, "User " + userId + " could not have Admin revoked.");
+			logger.error("Error making user an admin {}", userId, dae);
+		}
+		
+		return USERS_REDIRECT;
+	}
 }

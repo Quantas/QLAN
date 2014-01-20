@@ -9,20 +9,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.quantasnet.qlan.domain.Lan;
+import com.quantasnet.qlan.domain.Server;
 import com.quantasnet.qlan.domain.Tournament;
 import com.quantasnet.qlan.repo.LanRepository;
 import com.quantasnet.qlan.repo.TournamentRepository;
+import com.quantasnet.qlan.service.ServerService;
 
 @SessionAttributes("lan")
 @RequestMapping("/admin/setup")
 @Controller
 public class LanSetupController {
 
+	private final ServerService serverService;
 	private final LanRepository lanRepository;
 	private final TournamentRepository tournamentRepository;
 	
 	@Autowired
-	public LanSetupController(final LanRepository lanRepository, final TournamentRepository tournamentRepository) {
+	public LanSetupController(final ServerService serverService, final LanRepository lanRepository, final TournamentRepository tournamentRepository) {
+		this.serverService = serverService;
 		this.lanRepository = lanRepository;
 		this.tournamentRepository = tournamentRepository;
 	}
@@ -57,6 +61,31 @@ public class LanSetupController {
 		lanRepository.saveAndFlush(lan);
 		
 		return "redirect:/admin/setup/lans";
+	}
+	
+	@RequestMapping("/lan/server/remove/{lanId}/{serverId}")
+	public String removeServer(@PathVariable final long lanId, @PathVariable final long serverId) {
+		final Lan lan = lanRepository.findOne(lanId);
+		
+		if (null == lan) {
+			return "redirect:/lan/" + lanId;
+		}
+		
+		Server toRemove = null;
+		for (final Server server : lan.getServers()) {
+			if (server.getId().equals(serverId)) {
+				toRemove = server;
+				break;
+			}
+		}
+		
+		if (null != toRemove) {
+			lan.getServers().remove(toRemove);
+			lanRepository.saveAndFlush(lan);
+			serverService.removeServer(toRemove);
+		}
+		
+		return "redirect:/lan/" + lanId;
 	}
 	
 	// EVENTS

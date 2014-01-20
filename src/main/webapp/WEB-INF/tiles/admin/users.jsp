@@ -4,6 +4,8 @@
 <c:url var="deleteUrl" value="/admin/users/delete/" />
 <c:url var="activateUrl" value="/admin/users/activate/" />
 <c:url var="deactivateUrl" value="/admin/users/deactivate/" />
+<c:url var="makeAdminUrl" value="/admin/users/makeadmin/" />
+<c:url var="revokeAdminUrl" value="/admin/users/revokeadmin/" />
 
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">Users</tiles:putAttribute>
@@ -32,6 +34,7 @@
                         <th class="left">E-Mail</th>
                         <th class="center">Steam</th>
                         <th class="center">Active</th>
+                        <th class="center">Admin</th>
                         <th class="center">&nbsp;</th>
                     </tr>
                 </thead>
@@ -63,6 +66,16 @@
 							    	</c:otherwise>
 							    </c:choose>
                            	</td>
+                           	<td class="center">
+                            	<c:choose>
+							    	<c:when test="${user.admin}">
+							    		<i class="fa fa-check fa-fw"></i>
+							    	</c:when>
+							    	<c:otherwise>
+							    		<i class="fa fa-ban fa-fw"></i>
+							    	</c:otherwise>
+							    </c:choose>
+                           	</td>
                             <td>
                             	<div class="btn-group">
 								  <a class="btn btn-primary btn-sm" href="#"><i class="fa fa-user fa-fw"></i>&nbsp;Edit</a>
@@ -78,6 +91,14 @@
 								    	</c:otherwise>
 								    </c:choose>
 								    <li><a href="${deleteUrl}${user.id}"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+								    <c:choose>
+								    	<c:when test="${user.admin}">
+								    		<li><a href="${revokeAdminUrl}${user.id}">Revoke Admin</a></li>
+								    	</c:when>
+								    	<c:otherwise>
+								    		<li><a href="${makeAdminUrl}${user.id}">Make Admin</a></li>
+								    	</c:otherwise>
+								    </c:choose>
 								  </ul>
 								</div>
                             </td>

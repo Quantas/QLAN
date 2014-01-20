@@ -216,4 +216,15 @@ public class User extends QlanDomainBase implements UserDetails {
 	public boolean isEnabled() {
 		return isActive();
 	}
+	
+	public boolean isAdmin() {
+		if (null != roles && !roles.isEmpty()) {
+			for (final Role role : roles) {
+				if (role.getRoleName().equals(Role.ADMIN)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

@@ -12,6 +12,10 @@ import org.springframework.security.core.GrantedAuthority;
 @Entity
 @Table(name = "role")
 public class Role extends QlanDomainBase implements GrantedAuthority {
+
+	public static final String USER = "ROLE_USER";
+	public static final String ADMIN = "ROLE_ADMIN";
+	
 	private static final long serialVersionUID = 8361429697887374812L;
 
 	@Id

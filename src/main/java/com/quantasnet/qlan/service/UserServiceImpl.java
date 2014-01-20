@@ -101,4 +101,26 @@ public class UserServiceImpl implements UserService {
 		final User saveUser = userFactory.changePassword(user, password);
 		userRepository.saveAndFlush(saveUser);
 	}
+	
+	@Override
+    public void makeAdmin(long id) {
+		final User user = userRepository.findOne(id);
+		userFactory.addAdminRole(user);
+		userRepository.saveAndFlush(user);
+	}
+	
+	@Override
+    public void revokeAdmin(long id) {
+		final User user = userRepository.findOne(id);
+		Role toRemove = null;
+		for (final Role role : user.getRoles()) {
+			if (role.getRoleName().equals(Role.ADMIN)) {
+				toRemove = role;
+				break;
+			}
+		}
+		
+		user.getRoles().remove(toRemove);
+		userRepository.saveAndFlush(user);
+	}
 }

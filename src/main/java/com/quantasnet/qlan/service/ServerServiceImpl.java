@@ -21,6 +21,11 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
+	public Server findById(long id) {
+		return serverRepository.findOne(id);
+	}
+	
+	@Override
 	public List<Server> findAllSteamServers() {
 		return serverRepository.findBySteam(Boolean.TRUE);
 	}
@@ -28,5 +33,10 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public Server updateServer(final Server server) {
 		return serverRepository.saveAndFlush(server);
+	}
+	
+	@Override
+	public void removeServer(final Server server) {
+		serverRepository.delete(server);
 	}
 }

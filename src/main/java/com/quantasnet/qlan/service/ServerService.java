@@ -5,6 +5,8 @@ import java.util.List;
 import com.quantasnet.qlan.domain.Server;
 
 public interface ServerService {
+	Server findById(long id);
 	List<Server> findAllSteamServers();
 	Server updateServer(Server server);
+	void removeServer(Server server);
 }

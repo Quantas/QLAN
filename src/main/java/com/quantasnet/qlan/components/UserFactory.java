@@ -1,5 +1,6 @@
 package com.quantasnet.qlan.components;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -10,16 +11,19 @@ import org.springframework.stereotype.Component;
 
 import com.quantasnet.qlan.domain.Role;
 import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.service.RoleService;
 import com.quantasnet.qlan.steam.api.SteamProfile;
 
 @Component
 public class UserFactory {
 	
 	private final PasswordEncoder passwordEncoder;
+	private final RoleService roleService;
 
 	@Autowired
-	public UserFactory(final PasswordEncoder passwordEncoder) {
+	public UserFactory(final PasswordEncoder passwordEncoder, final RoleService roleService) {
 		this.passwordEncoder = passwordEncoder;
+		this.roleService = roleService;
 	}
 	
 	public User make(final String userName, final String firstName,
@@ -42,7 +46,8 @@ public class UserFactory {
 		user.setActive(true);
 		user.setPassword(encodePassword(user.getPassword()));
 		user.setImageUrl(generateGravatarUrl(user.getEmail()));
-
+		addUserRole(user);
+		
 		return user;
 	}
 	
@@ -76,6 +81,8 @@ public class UserFactory {
 		newUser.setSteam(true);
 		newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
 		
+		addUserRole(newUser);
+		
 		return newUser;
 	}
 
@@ -84,6 +91,16 @@ public class UserFactory {
 		return user;
 	}
 
+	public void addUserRole(final User user) {
+		final Set<Role> roles = new HashSet<Role>();
+		roles.add(roleService.findUserRole());
+		user.setRoles(roles);
+	}
+	
+	public void addAdminRole(final User user) {
+		user.getRoles().add(roleService.findAdminRole());
+	}
+	
 	private String encodePassword(final String password) {
 		return passwordEncoder.encode(password);
 	}

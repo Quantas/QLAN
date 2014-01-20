@@ -12,8 +12,7 @@ import com.quantasnet.qlan.repo.RoleRepository;
 
 @Transactional
 @Service
-public class RoleServiceImpl implements RoleService
-{
+public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
 	@Autowired
@@ -22,21 +21,28 @@ public class RoleServiceImpl implements RoleService
 	}
 
 	@Override
-    public List<Role> findAll()
-    {
+    public List<Role> findAll() {
         final Iterable<Role> roles = roleRepository.findAll();
         return Lists.newArrayList(roles);
     }
 
+	@Override
+	public Role findUserRole() {
+		return roleRepository.findByRoleName(Role.USER);
+	}
+	
+	@Override
+	public Role findAdminRole() {
+		return roleRepository.findByRoleName(Role.ADMIN);
+	}
+	
     @Override
-    public Role save(final Role role)
-    {
+    public Role save(final Role role) {
         return roleRepository.save(role);
     }
 
     @Override
-    public Role save(final String roleName)
-    {
+    public Role save(final String roleName) {
         final Role role = new Role();
         role.setRoleName(roleName);
 

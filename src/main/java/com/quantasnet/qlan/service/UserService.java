@@ -19,6 +19,8 @@ public interface UserService {
     void deleteUser(long id);
     void deactivateUser(long id);
     void activateUser(long id);
+    void makeAdmin(long id);
+    void revokeAdmin(long id);
     
     void changePassword(User user, String password);
 }
