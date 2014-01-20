@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantasnet.qlan.domain.Lan;
 import com.quantasnet.qlan.domain.Server;
+import com.quantasnet.qlan.domain.Tournament;
 import com.quantasnet.qlan.domain.User;
 import com.quantasnet.qlan.repo.LanRepository;
 import com.quantasnet.qlan.repo.ServerRepository;
@@ -57,6 +58,7 @@ public class LanController {
 		model.addAttribute("attending", attending);
 		model.addAttribute("lan", lan);
 		model.addAttribute("newServer", new Server());
+		model.addAttribute("newTournament", new Tournament());
 		return "lan";
 	}
 	

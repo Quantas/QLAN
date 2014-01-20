@@ -4,6 +4,10 @@
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
+<c:url var="momentJsUrl" value="/static/js/moment.min.js" />
+<c:url var="bootstrapDateTimeJsUrl" value="/static/js/bootstrap-datetimepicker.min.js" />
+<c:url var="bootstrapDateTimeCssUrl" value="/static/css/bootstrap-datetimepicker.min.css" />
+
 <c:url var="joinUrl" value="/lan/join" />
 <c:url var="addEventUrl" value="/admin/setup/lan/tournament/add" />
 <c:url var="addServerUrl" value="/lan/server/add" />
@@ -17,6 +21,10 @@
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">${lan.name}</tiles:putAttribute>
     <tiles:putAttribute name="head">
+		<script type="text/javascript" src="${momentJsUrl}"></script>
+   		<script type="text/javascript" src="${bootstrapDateTimeJsUrl}"></script>
+       	<link rel="stylesheet" href="${bootstrapDateTimeCssUrl}" />
+       	
     	<style>
     		.tooltip-inner {
 			    width: 300px;
@@ -92,7 +100,7 @@
 					</c:forEach>
 				</div>
 				<security:authorize url="/admin/setup/lan/tournament/add/">
-					<a href="${addEventUrl}/${lan.id}" class="btn btn-default">Add Event</a>
+					<a href="#" class="btn btn-default" onclick="$('#tournamentModal').modal('show'); return false;">Add Event</a>
 				</security:authorize>
 			</div>
 		</div>
@@ -168,7 +176,7 @@
 					</c:forEach>
 				</table>
 				<div style="text-align: center">
-					<a href="${addServerUrl}/${lan.id}" class="btn btn-default" onclick="$('#pmModal').modal('show'); return false;">Add Server</a>
+					<a href="#" class="btn btn-default" onclick="$('#pmModal').modal('show'); return false;">Add Server</a>
 				</div>
 			</div>
 		</div>
@@ -176,7 +184,7 @@
 	
 	<div class="clearfix"></div>
 
-	<!-- Modal - Add Serve -->
+	<!-- Modal - Add Server -->
 	<div class="modal fade" id="pmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -221,8 +229,52 @@
 			</div>
 		</div>
 		
+		<!-- Modal - Add Tournament -->
+		<div class="modal fade" id="tournamentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">
+							Create New Server
+						</h4>
+					</div>
+					<form:form modelAttribute="newTournament" action="${addEventUrl}/${lan.id}" method="POST">
+						<form:hidden path="id" value="0" />
+						<div class="modal-body">
+							<table class="table">
+								<tr>
+									<th>Name</th>
+									<td><form:input path="name" cssClass="form-control input-md" /></td>
+								</tr>
+								<tr>
+									<th>Date/Time</th>
+									<td>
+										<div class='input-group date' id='startPicker'>
+						                   <form:input path="start" data-format="YYYY-MM-DD HH:mm:ss" cssClass="form-control input-lg" placeholder="Start Date/Time"></form:input>
+						                   <span class="input-group-addon">
+						                   		<span class="glyphicon glyphicon-time"></span>
+						                   </span>
+						               </div>
+					               </td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<form:button id="submit" name="submit" value="submit" class="btn btn-primary">Create</form:button>
+						</div>
+					</form:form>
+				</div>
+			</div>
+		</div>
+		
 		<script>
 		$('.steamTooltip').tooltip();
+		
+		$(function() {
+		    $('#startPicker').datetimepicker();
+		  });
 		</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

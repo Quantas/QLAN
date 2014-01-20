@@ -91,16 +91,14 @@ public class LanSetupController {
 	// EVENTS
 	
 	@RequestMapping("/lan/tournament/add/{id}")
-	public String addTournament(@PathVariable final long id) {
+	public String addTournament(final Tournament tournament, @PathVariable final long id) {
 		final Lan lan = lanRepository.findOne(id);
 		
 		if (null == lan) {
 			return "redirect:/lan/" + id;
 		}
 		
-		final Tournament event = new Tournament();
-		event.setName("TEST");
-		final Tournament newEvent = tournamentRepository.saveAndFlush(event);
+		final Tournament newEvent = tournamentRepository.saveAndFlush(tournament);
 		
 		lan.getTournaments().add(newEvent);
 		lanRepository.saveAndFlush(lan);
