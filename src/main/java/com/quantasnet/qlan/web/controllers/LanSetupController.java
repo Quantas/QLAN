@@ -105,4 +105,29 @@ public class LanSetupController {
 		
 		return "redirect:/lan/" + id;
 	}
+	
+	@RequestMapping("/lan/tournament/remove/{lanId}/{tournamentId}")
+	public String removeTournament(@PathVariable final long lanId, @PathVariable final long tournamentId) {
+		final Lan lan = lanRepository.findOne(lanId);
+		
+		if (null == lan) {
+			return "redirect:/lan/" + lanId;
+		}
+		
+		Tournament toRemove = null;
+		for (final Tournament tournament : lan.getTournaments()) {
+			if (tournament.getId().equals(tournamentId)) {
+				toRemove = tournament;
+				break;
+			}
+		}
+		
+		if (null != toRemove) {
+			lan.getTournaments().remove(toRemove);
+			lanRepository.saveAndFlush(lan);
+			tournamentRepository.delete(toRemove);
+		}
+		
+		return "redirect:/lan/" + lanId;
+	}
 }

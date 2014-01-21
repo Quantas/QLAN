@@ -10,6 +10,7 @@
 
 <c:url var="joinUrl" value="/lan/join" />
 <c:url var="addEventUrl" value="/admin/setup/lan/tournament/add" />
+<c:url var="removeEventUrl" value="/admin/setup/lan/tournament/remove/" />
 <c:url var="addServerUrl" value="/lan/server/add" />
 <c:url var="removeServerUrl" value="/admin/setup/lan/server/remove/" />
 <c:url var="leaveUrl" value="/lan/leave" />
@@ -100,7 +101,7 @@
 							<td><joda:format value="${tournament.start}" pattern="E HH:mm"/></td>
 							<td>${tournament.name}</td>
 							<security:authorize url="/admin/setup/lan/tournament/remove/">
-								<th>-</th>
+								<th><a href="${removeEventUrl}${lan.id}/${tournament.id}"><i class="fa fa-minus"></i></a></th>
 							</security:authorize>
 						</tr>
 					</c:forEach>
@@ -165,7 +166,7 @@
 						<th>Ping</th>
 						<th>Players</th>
 						<security:authorize url="/admin/setup/lan/server/remove/">
-							<th>&nbsp;</th>
+							<th><td>&nbsp;</td></th>
 						</security:authorize>
 					</tr>
 					<c:forEach var="server" items="${lan.servers}">
