@@ -93,14 +93,22 @@
    			<div class="panel-heading" style="text-align: center;">
    				<h1 class="panel-title">Schedule</h1>
    			</div>
-			<div class="panel-body" style="text-align: center;">
-				<div class="list-group">
+			<div class="panel-body">
+				<table class="table">
 					<c:forEach var="tournament" items="${lan.tournaments}">
-						<a href="#" class="list-group-item">${tournament.name}</a>
+						<tr>
+							<td><joda:format value="${tournament.start}" pattern="E HH:mm"/></td>
+							<td>${tournament.name}</td>
+							<security:authorize url="/admin/setup/lan/tournament/remove/">
+								<th>-</th>
+							</security:authorize>
+						</tr>
 					</c:forEach>
-				</div>
+				</table>
 				<security:authorize url="/admin/setup/lan/tournament/add/">
-					<a href="#" class="btn btn-default" onclick="$('#tournamentModal').modal('show'); return false;">Add Event</a>
+					<div style="text-align: center;">
+						<a href="#" class="btn btn-default" onclick="$('#tournamentModal').modal('show'); return false;">Add Event</a>
+					</div>
 				</security:authorize>
 			</div>
 		</div>
@@ -129,7 +137,18 @@
 				<hr />
 				<h4>Time Left</h4>
 				<div class="progress progress-striped active" style="height: 25px">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${percentLeft}" aria-valuemin="0" aria-valuemax="100" style="width: ${percentLeft}%">
+					<c:choose>
+						<c:when test="${percentLeft >= 50.0}">
+							<c:set var="progressClass" value="progress-bar-success" />
+						</c:when>
+						<c:when test="${percentLeft < 50.0 and percentLeft > 25.0}">
+							<c:set var="progressClass" value="progress-bar-warning" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="progressClass" value="progress-bar-danger" />
+						</c:otherwise>
+					</c:choose>
+					<div class="progress-bar ${progressClass}" role="progressbar" aria-valuenow="${percentLeft}" aria-valuemin="0" aria-valuemax="100" style="width: ${percentLeft}%">
     					<span class="sr-only">${percentLeft}% Time Left</span>
 					</div>
 				</div>
@@ -236,7 +255,7 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">
-							Create New Server
+							Create New Event
 						</h4>
 					</div>
 					<form:form modelAttribute="newTournament" action="${addEventUrl}/${lan.id}" method="POST">

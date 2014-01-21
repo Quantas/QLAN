@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -38,12 +39,15 @@ public class Lan extends QlanDomainBase {
 	@Column(name = "lan_end")
 	private DateTime end;
 
+	@OrderBy(value = "userName asc")
 	@ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
 	private Set<User> users;
 	
+	@OrderBy(value = "start asc")
 	@ManyToMany(targetEntity = Tournament.class, fetch = FetchType.EAGER)
 	private Set<Tournament> tournaments;
 	
+	@OrderBy(value = "game asc")
 	@ManyToMany(targetEntity = Server.class, fetch = FetchType.EAGER)
 	private Set<Server> servers;
 
