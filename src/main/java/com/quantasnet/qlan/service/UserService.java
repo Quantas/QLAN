@@ -10,6 +10,7 @@ import com.quantasnet.qlan.steam.api.SteamProfile;
 public interface UserService {
 	List<User> getAllUsers();
 	List<User> getAllSteamUsers();
+	List<User> findUsersByLanId(long id);
     User getUserByUsername(String username);
     User getUserBySteamId(long id);
     User saveUser(User user);

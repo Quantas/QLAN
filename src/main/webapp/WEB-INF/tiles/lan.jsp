@@ -8,14 +8,11 @@
 <c:url var="bootstrapDateTimeJsUrl" value="/static/js/bootstrap-datetimepicker.min.js" />
 <c:url var="bootstrapDateTimeCssUrl" value="/static/css/bootstrap-datetimepicker.min.css" />
 
-<c:url var="joinUrl" value="/lan/join" />
-<c:url var="addEventUrl" value="/admin/setup/lan/tournament/add" />
+<c:url var="addEventUrl" value="/admin/setup/lan/tournament/add/" />
 <c:url var="removeEventUrl" value="/admin/setup/lan/tournament/remove/" />
 <c:url var="addServerUrl" value="/lan/server/add" />
-<c:url var="removeServerUrl" value="/admin/setup/lan/server/remove/" />
-<c:url var="leaveUrl" value="/lan/leave" />
 
-<c:url var="steamPng" value="/static/images/steam.png" />
+<c:url var="lanUrl" value="/lan/${lan.id}" />
 
 <c:url var="lansharkPng" value="/static/images/lanshark-banner.png" />
 
@@ -52,39 +49,8 @@
    			<div class="panel-heading" style="text-align: center;">
    				<h1 class="panel-title">Attendees</h1>
    			</div>
-			<div class="panel-body" style="text-align: left;">
-				<ul class="list-group">
-					<c:forEach var="user" items="${lan.users}">
-						<c:if test="${not empty user.steamGame}" >
-							<c:set var="tooltipText" value="In Game - ${user.steamGame}" />
-						</c:if>
-						<c:if test="${empty user.steamGame}" >
-							<c:set var="tooltipText" value="Not In Game" />
-						</c:if>
-						<li class="steamTooltip list-group-item" data-toggle="tooltip"  data-placement="right" title="${tooltipText}">
-							<c:if test="${user.steamOnline}">
-								<c:set var="border" value="border: 4px solid #8dccff" />
-							</c:if>
-							<c:if test="${user.steamOnline and not empty user.steamGame}">
-								<c:set var="border" value="border: 4px solid #b3fc55" />
-							</c:if>
-							<c:if test="${!user.steamOnline}">
-								<c:set var="border" value="border: 4px solid #cccccc" />
-							</c:if>
-							<img src="${user.imageUrl}" width="30" style="${border}" />
-							&nbsp;&nbsp;
-							${user.userName}
-						</li>
-					</c:forEach>
-				</ul>
-				<div style="text-align: center">
-					<c:if test="${!attending}">
-						<a href="${joinUrl}/${lan.id}" class="btn btn-default">Join</a>
-					</c:if>
-					<c:if test="${attending}">
-						<a href="${leaveUrl}/${lan.id}" class="btn btn-default">Leave</a>
-					</c:if>
-				</div>
+			<div id="userContainer" class="panel-body" style="text-align: left;">
+				<!-- Users will load here -->
 			</div>
 		</div>
 	</div>
@@ -135,23 +101,8 @@
 						<td><joda:format value="${lan.end}" pattern="MM/dd/yyyy HH:mm"/></td>
 					</tr>
 				</table>
-				<hr />
-				<h4>Time Left</h4>
-				<div class="progress progress-striped active" style="height: 25px">
-					<c:choose>
-						<c:when test="${percentLeft >= 50.0}">
-							<c:set var="progressClass" value="progress-bar-success" />
-						</c:when>
-						<c:when test="${percentLeft < 50.0 and percentLeft > 25.0}">
-							<c:set var="progressClass" value="progress-bar-warning" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="progressClass" value="progress-bar-danger" />
-						</c:otherwise>
-					</c:choose>
-					<div class="progress-bar ${progressClass}" role="progressbar" aria-valuenow="${percentLeft}" aria-valuemin="0" aria-valuemax="100" style="width: ${percentLeft}%">
-    					<span class="sr-only">${percentLeft}% Time Left</span>
-					</div>
+				<div id="timeLeftContainer">
+					<!-- Time Left Will Load Here -->
 				</div>
 			</div>
 		</div>
@@ -159,45 +110,8 @@
    			<div class="panel-heading" style="text-align: center">
    				<h1 class="panel-title">Servers</h1>
    			</div>
-			<div class="panel-body">
-				<table class="table">
-					<tr>
-						<th>Server</th>
-						<th>Ping</th>
-						<th>Players</th>
-						<security:authorize url="/admin/setup/lan/server/remove/">
-							<th><td>&nbsp;</td></th>
-						</security:authorize>
-					</tr>
-					<c:forEach var="server" items="${lan.servers}">
-						<tr>
-							<td>
-								<c:if test="${server.steam}">
-									<a href="steam://connect/${server.hostname}:${server.port}"><img src="${steamPng}" alt="Steam Server" /></a>&nbsp;&nbsp;${server.game}
-								</c:if>
-								<c:if test="${!server.steam}">
-									${server.game}&nbsp;-&nbsp;${server.hostname}:${server.port}
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${server.steam}">
-									${server.ping}
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${server.steam}">
-									${server.currentPlayers}/${server.maxPlayers}
-								</c:if>
-							</td>
-							<security:authorize url="/admin/setup/lan/server/remove/">
-								<td><a href="${removeServerUrl}${lan.id}/${server.id}"><i class="fa fa-minus"></i></a></td>
-							</security:authorize>
-						</tr>
-					</c:forEach>
-				</table>
-				<div style="text-align: center">
-					<a href="#" class="btn btn-default" onclick="$('#pmModal').modal('show'); return false;">Add Server</a>
-				</div>
+			<div class="panel-body" id="serverContainer">
+				<!-- Servers will load here -->
 			</div>
 		</div>
 	</div>
@@ -259,7 +173,7 @@
 							Create New Event
 						</h4>
 					</div>
-					<form:form modelAttribute="newTournament" action="${addEventUrl}/${lan.id}" method="POST">
+					<form:form modelAttribute="newTournament" action="${addEventUrl}${lan.id}" method="POST">
 						<form:hidden path="id" value="0" />
 						<div class="modal-body">
 							<table class="table">
@@ -290,11 +204,31 @@
 		</div>
 		
 		<script>
-		$('.steamTooltip').tooltip();
+		var loadServers = function() {
+			$('#serverContainer').load("${lanUrl}/servers #serversContainer");
+		};
 		
-		$(function() {
-		    $('#startPicker').datetimepicker();
-		  });
+		var loadUsers = function() {
+			$('#userContainer').load("${lanUrl}/users #usersContainer", function() {
+				$('.steamTooltip').tooltip();
+			});
+		};
+		
+		var loadTimeLeft = function() {
+			$('#timeLeftContainer').load("${lanUrl}/timeLeft #timeLeftContainer");
+		};
+		
+		$(document).ready(function(){
+			$('#startPicker').datetimepicker();
+			
+			loadServers();
+			loadUsers();
+			loadTimeLeft();
+			
+			setInterval(loadServers, 5000);
+			setInterval(loadUsers, 12000);
+			setInterval(loadTimeLeft, 60000);
+		});
 		</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

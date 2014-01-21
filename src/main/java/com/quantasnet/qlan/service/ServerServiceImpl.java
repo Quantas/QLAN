@@ -31,6 +31,11 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
+	public List<Server> findServersByLanId(long id) {
+		return serverRepository.findServersByLanId(id);
+	}
+	
+	@Override
 	public Server updateServer(final Server server) {
 		return serverRepository.saveAndFlush(server);
 	}

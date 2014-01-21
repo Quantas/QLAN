@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findBySteam(Boolean.TRUE);
 	}
 
+	@Override
+	public List<User> findUsersByLanId(long id) {
+		return userRepository.findUsersByLanId(id);
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public User getUserByUsername(final String username) {
