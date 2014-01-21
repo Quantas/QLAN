@@ -31,7 +31,7 @@ public class UpdateSteamServersJob {
 	public void updateServers() {
 		final List<Server> servers = serverService.findAllSteamServers();
 		for (final Server server : servers) {
-			LOG.info("Querying Server {}", server.getId());
+			LOG.debug("Querying Server {}", server.getId());
 			final SteamServer steamServer = steamAPI.getSourceServer(server);
 			if (null == steamServer) {
 				server.setCurrentPlayers(0);
@@ -43,7 +43,7 @@ public class UpdateSteamServersJob {
 				server.setMaxPlayers(steamServer.getMaxPlayers());
 				server.setPing(steamServer.getPing());
 				server.setGame(steamServer.getName());
-				LOG.info("Server {} Successfully Updated = {}", server.getId(), server);
+				LOG.debug("Server {} Successfully Updated = {}", server.getId(), server);
 			}
 			serverService.updateServer(server);
 		}
