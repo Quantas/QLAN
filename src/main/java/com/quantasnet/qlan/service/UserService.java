@@ -12,11 +12,14 @@ public interface UserService {
 	List<User> getAllSteamUsers();
 	List<User> findUsersByLanId(long id);
     User getUserByUsername(String username);
+    User getUserByEmail(String email);
     User getUserBySteamId(long id);
+    User getUserById(long id);
     User saveUser(User user);
     User saveOpenIdUser(final SteamProfile profile);
     User save(String userName, String firstName, String lastName, String email, String password, Set<Role> roles);
     User update(User user);
+    User profileUpdate(User user);
     void deleteUser(long id);
     void deactivateUser(long id);
     void activateUser(long id);

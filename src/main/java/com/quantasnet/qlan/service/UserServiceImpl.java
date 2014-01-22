@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,10 +49,20 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getUserByUserName(username);
 	}
 
+	@Override
+	public User getUserByEmail(final String email) {
+		return userRepository.getUserByEmail(email);
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public User getUserBySteamId(long id) {
 		return userRepository.getUserBySteamId(id);
+	}
+	
+	@Override
+	public User getUserById(long id) {
+		return userRepository.findOne(id);
 	}
 	
 	@Override
@@ -80,6 +92,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(final User user) {
 		return userRepository.saveAndFlush(user);
+	}
+	
+	@Override
+	public User profileUpdate(final User profileUser) {
+		final User dbUser = userRepository.findOne(profileUser.getId());
+		dbUser.setFirstName(profileUser.getFirstName());
+		dbUser.setLastName(profileUser.getLastName());
+		dbUser.setEmail(profileUser.getEmail());
+		dbUser.setImageUrl(userFactory.generateGravatarUrl(dbUser.getEmail()));
+		final User newUser = userRepository.saveAndFlush(dbUser);
+		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(newUser, newUser.getPassword(), newUser.getAuthorities()));
+		return newUser;
 	}
 
 	@Override

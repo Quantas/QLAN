@@ -105,7 +105,7 @@ public class UserFactory {
 		return passwordEncoder.encode(password);
 	}
 
-	private String generateGravatarUrl(final String email) {
+	public String generateGravatarUrl(final String email) {
 		return "http://www.gravatar.com/avatar/" + DigestUtils.md5Hex(email.trim().toLowerCase()) + "?d=identicon";
 	}
 }

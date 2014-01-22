@@ -29,28 +29,28 @@ public class User extends QlanDomainBase implements UserDetails {
 	private Long id;
 
 	@NotEmpty(message = "Username is required.")
-	@Size(min = 4, max = 255)
+	@Size(min = 4, max = 255, message = "Username must be between at least 4 characters.")
 	@Column(name = "user_name", nullable = false, unique = true, length = 255)
 	private String userName;
 
 	@NotEmpty(message = "Password is required.")
-	@Size(min = 8, max = 255)
+	@Size(min = 8, max = 255, message = "Password must be at least 8 characters.")
 	@Pattern(regexp = "^(?=.*[0-9])(?=\\S+$).{8,}$", message = "Password must be at least 8 characters and contain a number.")
 	@Column(name = "user_password", nullable = true, length = 255)
 	private String password;
 
 	@NotEmpty(message = "First name is required.")
-	@Size(min = 2, max = 30)
+	@Size(min = 2, max = 30, message = "First name must be at least 2 characters.")
 	@Column(name = "user_first_name", nullable = true)
 	private String firstName;
 
 	@NotEmpty(message = "Last name is required.")
-	@Size(min = 2, max = 30)
+	@Size(min = 2, max = 30, message = "Last name must be at least 2 characters.")
 	@Column(name = "user_last_name", nullable = true)
 	private String lastName;
 
-	@NotEmpty
-	@Email
+	@NotEmpty(message = "Email is required.")
+	@Email(message = "Email must be well formatted.")
 	@Column(name = "user_email", nullable = true, unique = true)
 	private String email;
 

@@ -35,16 +35,18 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@Valid final User user,
-			final BindingResult bindingResult,
-			@RequestParam("confirmPassword") final String confirmPassword,
-			final Model model) {
+	public String save(@Valid final User user, final BindingResult bindingResult, @RequestParam("confirmPassword") final String confirmPassword, final Model model) {
 
-		final User userNameCheck = userService.getUserByUsername(user
-				.getUsername());
+		final User userNameCheck = userService.getUserByUsername(user.getUsername());
 
 		if (null != userNameCheck) {
 			bindingResult.addError(new FieldError("user", "userName", "already taken"));
+		}
+		
+		final User emailCheck = userService.getUserByEmail(user.getEmail());
+		
+		if (null != emailCheck) {
+			bindingResult.addError(new FieldError("user", "email", " Email already taken"));
 		}
 
 		if (!confirmPassword.equals(user.getPassword())) {

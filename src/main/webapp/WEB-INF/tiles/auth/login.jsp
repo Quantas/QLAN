@@ -4,6 +4,7 @@
 
 <c:url var="openIdUrl" value="/login/openid" />
 <c:url var="loginUrl" value="/login" />
+<c:url var="signUpUrl" value="/user/signup" />
 
 <tiles:insertDefinition name="baseLayout">
     <tiles:putAttribute name="title">Login</tiles:putAttribute>
@@ -24,7 +25,7 @@
         
         	 <div class="panel panel-primary">
         	 	<div class="panel-heading">
-   				<h1 class="panel-title">Steam Login (Preferred)</h1>
+   				<h1 class="panel-title">Sign In With Steam</h1>
    			</div>
   				<div class="panel-body" style="text-align: center">
 		            <form action="${openIdUrl}" method="post" target="_top">
@@ -37,17 +38,39 @@
             
             <div class="panel panel-primary">
         	 	<div class="panel-heading">
-   					<h1 class="panel-title">Local Login</h1>
+   					<h1 class="panel-title">Sign In With Local Account</h1>
    				</div>
   				<div class="panel-body">
-		            <form:form name="f" action="${loginUrl}" method="post" cssClass="form-signin" role="form">
-		                <fieldset>
-		                    <input type="text" id="username" name="username" class="form-control input-lg" placeholder="User Name" />
-		                    <input type="password" id="password" name="password" class="form-control input-lg" placeholder="Password"/>
-		                    <label class="checkbox" for="_spring_security_remember_me"><input type='checkbox' id="_spring_security_remember_me" name='_spring_security_remember_me'/>Remember Me</label>
-		                    <button id="submit" type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
-		                </fieldset>
+		            <form:form action="${loginUrl}" method="post" cssClass="form-signin" role="form">
+		            	<table class="table">
+		            		<tr>
+		            			<th>User Name</th>
+		            			<td><input type="text" id="username" name="username" class="form-control input-md" placeholder="User Name" /></td>
+		            		</tr>
+		                    <tr>
+		                    	<th>Password</th>
+		                    	<td><input type="password" id="password" name="password" class="form-control input-md" placeholder="Password"/></td>
+		                    </tr>
+		                    <tr>
+		                    	<th><label for="_spring_security_remember_me">Remember Me</label></th>
+		                    	<td><input type='checkbox' id="_spring_security_remember_me" name="_spring_security_remember_me" class="form-control input-md" /></td>
+		                    </tr>
+		            	</table>
+		            	<div class="container" style="width: 250px;">
+		            		<button id="submit" type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+		            	</div>
 		            </form:form>
+           		</div>	
+            </div>
+            
+            <div class="panel panel-primary">
+        	 	<div class="panel-heading">
+   					<h1 class="panel-title">Create Local Account</h1>
+   				</div>
+  				<div class="panel-body">
+  					<div class="container" style="width: 250px;">
+  						<br /><a href="${signUpUrl}" class="btn btn-lg btn-primary btn-block">Sign Up</a><br />
+					</div>
            		</div>	
             </div>
         </div>

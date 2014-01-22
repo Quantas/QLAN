@@ -33,13 +33,19 @@
             <%-- Show the admin menu if we have the correct role --%>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i>&nbsp;&nbsp;Admin <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    	<i class="fa fa-wrench fa-fw"></i>&nbsp;&nbsp;Admin&nbsp;<b class="caret"></b>
+                   	</a>
                     <ul class="dropdown-menu">
                     	<security:authorize url="/admin/users">
-                            <li><a href="${usersUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Users</a></li>
+                            <li>
+                            	<a href="${usersUrl}"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Users</a>
+                           	</li>
                         </security:authorize>
                         <security:authorize url="/admin/setup/lans">
-                            <li><a href="${lansUrl}"><i class="fa fa-signal fa-fw"></i>&nbsp;&nbsp;LANs</a></li>
+                            <li>
+                            	<a href="${lansUrl}"><i class="fa fa-signal fa-fw"></i>&nbsp;&nbsp;LANs</a>
+                           	</li>
                         </security:authorize>
                     </ul>
                 </li>
@@ -47,7 +53,7 @@
             <security:authorize access="isAuthenticated()">
 		        <li class="dropdown">
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                <img src="${user.imageUrl}" width="25"/>
+		                <img src="${user.imageUrl}" style="height: 1em;" />
 		                &nbsp;&nbsp;${user.firstName}&nbsp;${user.lastName}
 		                <b class="caret"></b>
 		            </a>
