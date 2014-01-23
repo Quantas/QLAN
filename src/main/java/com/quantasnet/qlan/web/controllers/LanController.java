@@ -21,7 +21,7 @@ import com.quantasnet.qlan.domain.Server;
 import com.quantasnet.qlan.domain.Tournament;
 import com.quantasnet.qlan.domain.User;
 import com.quantasnet.qlan.model.ModelConstants;
-import com.quantasnet.qlan.repo.LanRepository;
+import com.quantasnet.qlan.service.LanService;
 import com.quantasnet.qlan.service.ServerService;
 import com.quantasnet.qlan.service.UserService;
 
@@ -29,25 +29,20 @@ import com.quantasnet.qlan.service.UserService;
 @RequestMapping("/lan")
 public class LanController {
 
-	private final LanRepository lanRepository;
+	private final LanService lanService;
 	private final ServerService serverService;
 	private final UserService userService;
 	
 	@Autowired
-	public LanController(final LanRepository lanRepository, final ServerService serverService, final UserService userService) {
-		this.lanRepository = lanRepository;
+	public LanController(final LanService lanService, final ServerService serverService, final UserService userService) {
+		this.lanService = lanService;
 		this.serverService = serverService;
 		this.userService = userService;
 	}
 	
 	@RequestMapping("/{id}")
 	public String view(@PathVariable final long id, @AuthenticationPrincipal final User user, final Model model) {
-		final Lan lan = lanRepository.findOne(id);
-		
-		if (null == lan) {
-			return "forward:/404";
-		}
-		
+		final Lan lan = lanService.findOne(id);
 		model.addAttribute("lan", lan);
 		model.addAttribute("newServer", new Server());
 		model.addAttribute("newTournament", new Tournament());
@@ -83,7 +78,7 @@ public class LanController {
 	
 	@RequestMapping(value = "/{id}/timeLeft", method = RequestMethod.GET)
 	public String loadTimeLeft(@PathVariable final long id, final Model model) {
-		final Lan lan = lanRepository.findOne(id);
+		final Lan lan = lanService.findOne(id);
 		
 		final long current = DateTime.now().getMillis();
 		final long start = lan.getStart().getMillis();
@@ -98,43 +93,13 @@ public class LanController {
 	
 	@RequestMapping("/join/{id}")
 	public String join(@PathVariable final long id, @AuthenticationPrincipal final User user) {
-		final Lan lan = lanRepository.findOne(id);
-		
-		if (null == lan) {
-			return "forward:/404";
-		}
-		
-		for (final User attendee : lan.getUsers()) {
-			if (attendee.getId().equals(user.getId())) {
-				return "redirect:/lan/" + id;
-			}
-		}
-		
-		lan.getUsers().add(user);
-		lanRepository.saveAndFlush(lan);
-		
+		lanService.joinLan(user, id);
 		return "redirect:/lan/" + id;
 	}
 	
 	@RequestMapping("/leave/{id}")
 	public String leave(@PathVariable final long id, @AuthenticationPrincipal final User user) {
-		final Lan lan = lanRepository.findOne(id);
-		
-		if (null == lan) {
-			return "forward:/404";
-		}
-		
-		User toDelete = null;
-		
-		for (final User attendee : lan.getUsers()) {
-			if (attendee.getId().equals(user.getId())) {
-				toDelete = attendee;
-			}
-		}
-		
-		lan.getUsers().remove(toDelete);
-		lanRepository.saveAndFlush(lan);
-		
+		lanService.leaveLan(user, id);
 		return "redirect:/lan/" + id;
 	}
 	
@@ -153,17 +118,7 @@ public class LanController {
 			return "redirect:/lan/" + id;
 		}
 		
-		final Lan lan = lanRepository.findOne(id);
-		
-		if (null == lan) {
-			return "forward:/404";
-		}
-		
-		final Server newServer = serverService.updateServer(server);
-		
-		lan.getServers().add(newServer);
-		lanRepository.saveAndFlush(lan);
-		
+		serverService.addNewServerToLan(id, server);
 		return "redirect:/lan/" + id;
 	}
 }

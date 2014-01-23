@@ -6,17 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.quantasnet.qlan.domain.Lan;
 import com.quantasnet.qlan.domain.Server;
+import com.quantasnet.qlan.repo.LanRepository;
 import com.quantasnet.qlan.repo.ServerRepository;
 
 @Transactional
 @Service
 public class ServerServiceImpl implements ServerService {
 
+	private final LanRepository lanRepository;
 	private final ServerRepository serverRepository;
 	
 	@Autowired
-	public ServerServiceImpl(final ServerRepository serverRepository) {
+	public ServerServiceImpl(final LanRepository lanRepository, final ServerRepository serverRepository) {
+		this.lanRepository = lanRepository;
 		this.serverRepository = serverRepository;
 	}
 	
@@ -33,6 +37,14 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public List<Server> findServersByLanId(long id) {
 		return serverRepository.findServersByLanId(id);
+	}
+	
+	@Override
+	public void addNewServerToLan(final long id, final Server server) {
+		final Lan lan = lanRepository.findOne(id);
+		final Server newServer = serverRepository.saveAndFlush(server);
+		lan.getServers().add(newServer);
+		lanRepository.saveAndFlush(lan);
 	}
 	
 	@Override

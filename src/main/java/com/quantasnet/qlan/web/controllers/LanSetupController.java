@@ -56,7 +56,7 @@ public class LanSetupController {
 	}
 	
 	@RequestMapping(value = "/newlan/save", method = RequestMethod.POST)
-	public String saveLan(final Lan lan, final Model model) {
+	public String saveLan(final Lan lan) {
 		
 		lanRepository.saveAndFlush(lan);
 		
@@ -66,10 +66,6 @@ public class LanSetupController {
 	@RequestMapping("/lan/server/remove/{lanId}/{serverId}")
 	public String removeServer(@PathVariable final long lanId, @PathVariable final long serverId) {
 		final Lan lan = lanRepository.findOne(lanId);
-		
-		if (null == lan) {
-			return "redirect:/lan/" + lanId;
-		}
 		
 		Server toRemove = null;
 		for (final Server server : lan.getServers()) {
@@ -94,10 +90,6 @@ public class LanSetupController {
 	public String addTournament(final Tournament tournament, @PathVariable final long id) {
 		final Lan lan = lanRepository.findOne(id);
 		
-		if (null == lan) {
-			return "redirect:/lan/" + id;
-		}
-		
 		final Tournament newEvent = tournamentRepository.saveAndFlush(tournament);
 		
 		lan.getTournaments().add(newEvent);
@@ -109,10 +101,6 @@ public class LanSetupController {
 	@RequestMapping("/lan/tournament/remove/{lanId}/{tournamentId}")
 	public String removeTournament(@PathVariable final long lanId, @PathVariable final long tournamentId) {
 		final Lan lan = lanRepository.findOne(lanId);
-		
-		if (null == lan) {
-			return "redirect:/lan/" + lanId;
-		}
 		
 		Tournament toRemove = null;
 		for (final Tournament tournament : lan.getTournaments()) {
