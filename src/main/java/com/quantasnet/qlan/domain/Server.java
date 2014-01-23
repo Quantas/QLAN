@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "server")
@@ -26,6 +28,8 @@ public class Server extends QlanDomainBase {
 	@Column(name = "hostname")
 	private String hostname;
 	
+	@Min(value = 1, message = "Port must be greater than 0.")
+	@Max(value = 65535, message = "Port must be less than 65536.")
 	@Column(name = "port")
 	private Integer port;
 	

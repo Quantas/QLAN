@@ -2,19 +2,25 @@ package com.quantasnet.qlan.web.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.quantasnet.qlan.domain.Lan;
 import com.quantasnet.qlan.domain.Server;
 import com.quantasnet.qlan.domain.Tournament;
 import com.quantasnet.qlan.domain.User;
+import com.quantasnet.qlan.model.ModelConstants;
 import com.quantasnet.qlan.repo.LanRepository;
 import com.quantasnet.qlan.service.ServerService;
 import com.quantasnet.qlan.service.UserService;
@@ -133,7 +139,20 @@ public class LanController {
 	}
 	
 	@RequestMapping(value = "/server/add/{id}", method = RequestMethod.POST)
-	public String addServer(final Server server, @PathVariable final long id) {
+	public String addServer(@Valid final Server server, final BindingResult result,  @PathVariable final long id, final RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors()) {
+			
+			final StringBuilder builder = new StringBuilder();
+			for (final FieldError error : result.getFieldErrors()) {
+				builder.append(error.getDefaultMessage())
+				.append("<br />");
+			}
+			
+			redirectAttributes.addFlashAttribute(ModelConstants.FAILURE_STATUS, "There was an error saving the new server:<br /><br />" + builder.toString());
+			return "redirect:/lan/" + id;
+		}
+		
 		final Lan lan = lanRepository.findOne(id);
 		
 		if (null == lan) {

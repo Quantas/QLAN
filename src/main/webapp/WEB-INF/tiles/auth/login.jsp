@@ -53,7 +53,7 @@
 		                    </tr>
 		                    <tr>
 		                    	<th><label for="_spring_security_remember_me">Remember Me</label></th>
-		                    	<td><input type='checkbox' id="_spring_security_remember_me" name="_spring_security_remember_me" class="form-control input-md" /></td>
+		                    	<td><input type='checkbox' id="_spring_security_remember_me" name="_spring_security_remember_me" /></td>
 		                    </tr>
 		            	</table>
 		            	<div class="container" style="width: 250px;">
