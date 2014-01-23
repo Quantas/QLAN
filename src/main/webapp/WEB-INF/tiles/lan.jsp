@@ -14,6 +14,8 @@
 
 <c:url var="lanUrl" value="/lan/${lan.id}" />
 
+<c:url var="loginUrl" value="/login" />
+
 <c:url var="lansharkPng" value="/static/images/lanshark-banner.png" />
 
 <tiles:insertDefinition name="baseLayout">
@@ -210,7 +212,11 @@
 		
 		var loadUsers = function() {
 			$('#userContainer').load("${lanUrl}/users #usersContainer", function() {
-				$('.steamTooltip').tooltip();
+				if ($('#usersContainer').length) {
+					$('.steamTooltip').tooltip();
+				} else {
+					window.location = '${loginUrl}';
+				}
 			});
 		};
 		
