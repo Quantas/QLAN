@@ -23,7 +23,7 @@
                  </div>
              </c:if>
         
-        	 <div class="panel panel-primary">
+        	 <div class="panel panel-default">
         	 	<div class="panel-heading">
    				<h1 class="panel-title">Sign In With Steam</h1>
    			</div>
@@ -36,7 +36,7 @@
 	            </div>
             </div>
             
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
         	 	<div class="panel-heading">
    					<h1 class="panel-title">Sign In With Local Account</h1>
    				</div>
@@ -63,7 +63,7 @@
            		</div>	
             </div>
             
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
         	 	<div class="panel-heading">
    					<h1 class="panel-title">Create Local Account</h1>
    				</div>

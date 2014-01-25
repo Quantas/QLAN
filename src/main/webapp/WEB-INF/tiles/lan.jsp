@@ -47,7 +47,7 @@
     	</c:choose>
     </div>
 	<div class="col-md-3">
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
    			<div class="panel-heading" style="text-align: center;">
    				<h1 class="panel-title">Attendees</h1>
    			</div>
@@ -58,7 +58,7 @@
 	</div>
 	
 	<div class="col-md-5">
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
    			<div class="panel-heading" style="text-align: center;">
    				<h1 class="panel-title">Schedule</h1>
    			</div>
@@ -84,7 +84,7 @@
 	</div>
 	
 	<div class="col-md-4">
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
    			<div class="panel-heading" style="text-align: center">
    				<h1 class="panel-title">LAN Info</h1>
    			</div>
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
    			<div class="panel-heading" style="text-align: center">
    				<h1 class="panel-title">Servers</h1>
    			</div>
