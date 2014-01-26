@@ -5,7 +5,7 @@
 <c:url var="removeServerUrl" value="/admin/setup/lan/server/remove/" />
 
 <div id="serversContainer">
-	<table class="table">
+	<table class="table table-responsive">
 		<tr>
 			<th>Server</th>
 			<th>Ping</th>
