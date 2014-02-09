@@ -4,7 +4,7 @@
 
 	<groupId>com.quantasnet.qlan</groupId>
 	<artifactId>qlan-server</artifactId>
-	<version>0.1.0.RELEASE</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>QLAN Server</name>
