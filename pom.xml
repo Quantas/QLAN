@@ -22,7 +22,6 @@
 		<c3p0.version>0.9.1.2</c3p0.version>
 		<com.fasterxml.jackson.core>2.2.0</com.fasterxml.jackson.core>
 		<com.google.guava.version>15.0</com.google.guava.version>
-		<com.miglayout.version>4.2</com.miglayout.version>
 		<commons.codec.version>1.8</commons.codec.version>
 		<commons.lang.version>2.6</commons.lang.version>
 		<ch.qos.logback.version>1.0.13</ch.qos.logback.version>
