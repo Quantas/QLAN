@@ -36,8 +36,8 @@
 	</properties>
 	
 	<scm>
-		<url>scm:git:ssh://bitbucket.org/lansharkadmin/qlan.git</url>
-		<connection>scm:git:ssh://bitbucket.org/lansharkadmin/qlan.git</connection>
+		<url>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</url>
+		<connection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</connection>
 		<developerConnection>scm:git:ssh://git@bitbucket.org:lansharkadmin/qlan.git</developerConnection>
 	</scm>
 
