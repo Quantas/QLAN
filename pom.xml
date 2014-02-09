@@ -34,11 +34,11 @@
 		<org.springframework.security.version>3.2.0.RELEASE</org.springframework.security.version>
 	</properties>
 	
-<scm>
-	<url>https://bitbucket.org/lansharkadmin/qlan.git</url>
-    <connection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</connection>
-    <developerConnection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</developerConnection>
-</scm>  
+	<scm>
+		<url>https://bitbucket.org/lansharkadmin/qlan.git</url>
+	    <connection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</connection>
+	    <developerConnection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</developerConnection>
+	</scm>  
 
 	<repositories>
 		<repository>
