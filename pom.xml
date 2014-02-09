@@ -5,7 +5,7 @@
 
 	<groupId>com.quantasnet.qlan</groupId>
 	<artifactId>qlan-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>QLAN Server</name>
@@ -34,8 +34,13 @@
 		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
 		<org.springframework.data.version>1.5.0.M1</org.springframework.data.version>
 		<org.springframework.security.version>3.2.0.RELEASE</org.springframework.security.version>
-		<org.xerial.version>3.7.2</org.xerial.version>
 	</properties>
+	
+	<scm>
+		<url>scm:git:ssh://bitbucket.org/lansharkadmin/qlan.git</url>
+		<connection>scm:git:ssh://bitbucket.org/lansharkadmin/qlan.git</connection>
+		<developerConnection>scm:git:ssh://git@bitbucket.org:lansharkadmin/qlan.git</developerConnection>
+	</scm>
 
 	<repositories>
 		<repository>
