@@ -20,36 +20,25 @@
 
 		<c3p0.version>0.9.1.2</c3p0.version>
 		<com.fasterxml.jackson.core>2.2.0</com.fasterxml.jackson.core>
-		<com.google.guava.version>15.0</com.google.guava.version>
+		<com.google.guava.version>17.0</com.google.guava.version>
 		<commons.codec.version>1.8</commons.codec.version>
 		<commons.lang.version>2.6</commons.lang.version>
 		<ch.qos.logback.version>1.0.13</ch.qos.logback.version>
 		<joda.version>2.3</joda.version>
 		<org.apache.tiles.version>3.0.3</org.apache.tiles.version>
-		<org.hibernate.version>4.2.4.Final</org.hibernate.version>
+		<org.hibernate.version>4.3.6.Final</org.hibernate.version>
 		<org.hibernate.javax.persistence.version>1.0.1.Final</org.hibernate.javax.persistence.version>
 		<org.slf4j.version>1.7.5</org.slf4j.version>
-		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
-		<org.springframework.data.version>1.5.0.M1</org.springframework.data.version>
-		<org.springframework.security.version>3.2.0.RELEASE</org.springframework.security.version>
+		<org.springframework.version>4.1.0.RELEASE</org.springframework.version>
+		<org.springframework.data.version>1.7.0.RELEASE</org.springframework.data.version>
+		<org.springframework.security.version>3.2.5.RELEASE</org.springframework.security.version>
 	</properties>
 	
 	<scm>
 		<url>https://bitbucket.org/lansharkadmin/qlan.git</url>
 	    <connection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</connection>
 	    <developerConnection>scm:git:ssh://git@bitbucket.org/lansharkadmin/qlan.git</developerConnection>
-	</scm>  
-
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>http://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+	</scm>
 
 	<build>
 		<plugins>
@@ -212,6 +201,11 @@
 			<artifactId>c3p0</artifactId>
 			<version>${c3p0.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
 		<!-- TILES -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
