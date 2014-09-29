@@ -11,3 +11,6 @@ activemq-data/
 .settings/
 .springBeans
 Thumbs.db
+qlandb.lck
+qlandb.properties
+qlandb.script

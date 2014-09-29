@@ -1,16 +1,22 @@
 package com.quantasnet.qlan.config;
 
-import javax.sql.DataSource;
-
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.hibernate.dialect.MySQLDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import javax.sql.DataSource;
+import java.util.Properties;
 
+/**
+ * Created by andrewlandsverk on 9/28/14.
+ */
 @Configuration
-public class DataSourceConfig {
+@Profile("!filedb")
+public class MySQLConfig {
 
-	@Bean(destroyMethod = "close")
+    @Bean(destroyMethod = "close")
     public DataSource dataSource() throws Exception {
         final ComboPooledDataSource jpaDataSource = new ComboPooledDataSource();
         jpaDataSource.setDriverClass(com.mysql.jdbc.Driver.class.getCanonicalName());
@@ -22,5 +28,13 @@ public class DataSourceConfig {
         jpaDataSource.setMaxStatements(50);
         return jpaDataSource;
     }
-	
+
+    @Bean
+    public Properties jpaProperties() {
+        final Properties properties = new Properties();
+        properties.put("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.dialect", MySQLDialect.class.getCanonicalName());
+        return properties;
+    }
 }

@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.hibernate.dialect.MySQLDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +19,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories("com.quantasnet.qlan.repo")
 @EnableTransactionManagement
-@Import({ DataSourceConfig.class })
+@Import({ MySQLConfig.class, HSQLDBConfig.class })
 public class DataConfig {
 	
 	@Autowired
 	private DataSource dataSource;
+
+    @Autowired
+    private Properties jpaProperties;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactory() throws Exception {
@@ -32,7 +34,7 @@ public class DataConfig {
 		entityManagerFactoryBean.setPackagesToScan("com.quantasnet.qlan.domain");
 		entityManagerFactoryBean.setJpaVendorAdapter(hibernateAdapter());
 		entityManagerFactoryBean.setDataSource(dataSource);
-		entityManagerFactoryBean.setJpaProperties(jpaProperties());
+		entityManagerFactoryBean.setJpaProperties(jpaProperties);
 		return entityManagerFactoryBean;
 	}
 
@@ -46,15 +48,6 @@ public class DataConfig {
 		final HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setShowSql(false);
 		return hibernateJpaVendorAdapter;
-	}
-
-	@Bean
-	public Properties jpaProperties() {
-		final Properties properties = new Properties();
-		properties.put("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-		properties.put("hibernate.hbm2ddl.auto", "update");
-		properties.put("hibernate.dialect", MySQLDialect.class.getCanonicalName());
-		return properties;
 	}
 
 	@Bean
