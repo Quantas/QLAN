@@ -25,13 +25,19 @@
 		<commons.lang3.version>3.3.2</commons.lang3.version>
 		<ch.qos.logback.version>1.1.2</ch.qos.logback.version>
 		<joda.version>2.4</joda.version>
+        <joda.jsp.version>1.1.1</joda.jsp.version>
+        <hsqldb.version>2.3.2</hsqldb.version>
+        <mysql.version>5.1.33</mysql.version>
 		<org.apache.tiles.version>3.0.4</org.apache.tiles.version>
 		<org.hibernate.version>4.3.6.Final</org.hibernate.version>
+        <org.hibernate.validator.version>5.1.2.Final</org.hibernate.validator.version>
 		<org.hibernate.javax.persistence.version>1.0.1.Final</org.hibernate.javax.persistence.version>
+        <org.jadira.usertype.version>3.2.0.GA</org.jadira.usertype.version>
 		<org.slf4j.version>1.7.7</org.slf4j.version>
 		<org.springframework.version>4.1.0.RELEASE</org.springframework.version>
 		<org.springframework.data.version>1.7.0.RELEASE</org.springframework.data.version>
 		<org.springframework.security.version>3.2.5.RELEASE</org.springframework.security.version>
+        <xml-apis.version>2.0.2</xml-apis.version>
 	</properties>
 	
 	<scm>
@@ -167,7 +173,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.0.1.Final</version>
+			<version>${org.hibernate.validator.version}</version>
 		</dependency>
 		<!-- JACKSON -->
 		<dependency>
@@ -204,7 +210,7 @@
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
+            <version>${xml-apis.version}</version>
         </dependency>
 		<!-- TILES -->
 		<dependency>
@@ -242,12 +248,12 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time-jsptags</artifactId>
-			<version>1.1.1</version>
+			<version>${joda.jsp.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.1.0.CR1</version>
+			<version>${org.jadira.usertype.version}</version>
 		</dependency>
 		<!-- GUAVA -->
 		<dependency>
@@ -297,13 +303,13 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.28</version>
+			<version>${mysql.version}</version>
 		</dependency>
         <!-- HSQLDB -->
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.3.2</version>
+            <version>${hsqldb.version}</version>
         </dependency>
 		<!-- STEAM -->
 		<dependency>
