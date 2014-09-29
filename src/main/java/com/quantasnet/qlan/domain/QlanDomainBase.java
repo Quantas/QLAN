@@ -2,7 +2,7 @@ package com.quantasnet.qlan.domain;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public abstract class QlanDomainBase implements Serializable {
 
