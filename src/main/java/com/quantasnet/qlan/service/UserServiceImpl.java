@@ -19,14 +19,11 @@ import com.quantasnet.qlan.steam.api.SteamProfile;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private final UserRepository userRepository;
-	private final UserFactory userFactory;
-
 	@Autowired
-	public UserServiceImpl(final UserRepository userRepository, final UserFactory userFactory) {
-		this.userRepository = userRepository;
-		this.userFactory = userFactory;
-	}
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserFactory userFactory;
 
 	@Override
 	public List<User> getAllUsers() {

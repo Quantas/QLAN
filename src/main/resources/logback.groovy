@@ -22,6 +22,6 @@ appender("FILE", FileAppender) {
 
 logger("org.apache.commons.digester", INFO)
 logger("org.hibernate", INFO)
-//logger("org.springframework", INFO)
+logger("org.springframework", INFO)
 
 root(DEBUG, ["STDOUT", "FILE"])

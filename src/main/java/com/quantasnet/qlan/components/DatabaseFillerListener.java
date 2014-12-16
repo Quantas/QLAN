@@ -20,15 +20,12 @@ public class DatabaseFillerListener implements ApplicationListener<ContextRefres
 {
     private final Logger log = LoggerFactory.getLogger(DatabaseFillerListener.class);
 
-    private final RoleService roleService;
-    private final UserService userService;
-
     @Autowired
-    public DatabaseFillerListener(final RoleService roleService, final UserService userService) {
-    	this.roleService = roleService;
-    	this.userService = userService;
-    }
+    private RoleService roleService;
     
+    @Autowired
+    private UserService userService;
+
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent contextRefreshedEvent)
     {

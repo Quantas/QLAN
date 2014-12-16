@@ -7,7 +7,6 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.quantasnet.qlan.config.RootConfig;
-import com.quantasnet.qlan.config.SecurityConfig;
 import com.quantasnet.qlan.config.WebConfig;
 
 /**
@@ -21,7 +20,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { RootConfig.class, SecurityConfig.class };
+		return new Class<?>[] { RootConfig.class };
 	}
 
 	@Override

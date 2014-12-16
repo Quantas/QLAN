@@ -17,14 +17,11 @@ import com.quantasnet.qlan.steam.api.SteamProfile;
 @Component
 public class UserFactory {
 	
-	private final PasswordEncoder passwordEncoder;
-	private final RoleService roleService;
-
 	@Autowired
-	public UserFactory(final PasswordEncoder passwordEncoder, final RoleService roleService) {
-		this.passwordEncoder = passwordEncoder;
-		this.roleService = roleService;
-	}
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	public User make(final String userName, final String firstName,
 			final String lastName, final String email, final String password,

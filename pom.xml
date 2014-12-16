@@ -29,6 +29,7 @@
         <hsqldb.version>2.3.2</hsqldb.version>
         <mysql.version>5.1.33</mysql.version>
 		<org.apache.tiles.version>3.0.4</org.apache.tiles.version>
+		<org.aspectj.version>1.8.4</org.aspectj.version>
 		<org.hibernate.version>4.3.6.Final</org.hibernate.version>
         <org.hibernate.validator.version>5.1.2.Final</org.hibernate.validator.version>
 		<org.hibernate.javax.persistence.version>1.0.0.Final</org.hibernate.javax.persistence.version>
@@ -168,6 +169,12 @@
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-openid</artifactId>
 		    <version>${org.springframework.security.version}</version>
+		</dependency>
+		<!-- ASPECTJ -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectj.version}</version>
 		</dependency>
 		<!-- BEAN VALIDATION -->
 		<dependency>

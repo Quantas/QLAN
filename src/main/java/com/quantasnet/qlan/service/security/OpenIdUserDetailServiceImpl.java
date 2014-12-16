@@ -17,15 +17,12 @@ public class OpenIdUserDetailServiceImpl  implements AuthenticationUserDetailsSe
     
 	private static final String STEAM_OPENID_URL = "http://steamcommunity.com/openid/id/";
 	
-	private final UserService userService;
-	private final SteamAPI steamAPI;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
-	public OpenIdUserDetailServiceImpl(final UserService userService, final SteamAPI steamAPI) {
-		this.userService = userService;
-		this.steamAPI = steamAPI;
-	}
-
+	private SteamAPI steamAPI;
+	
 	@Override
 	public UserDetails loadUserDetails(final OpenIDAuthenticationToken token) throws UsernameNotFoundException {
         return load(token);
