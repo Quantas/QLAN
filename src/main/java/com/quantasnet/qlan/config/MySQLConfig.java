@@ -17,7 +17,7 @@ import java.util.Properties;
 @Profile("!filedb")
 public class MySQLConfig {
 
-    @Value("#{systemProperties['DATABASE_URL']")
+    @Value("#{systemProperties['DATABASE_URL']}")
     private String databaseUrl;
 
     @Bean(destroyMethod = "close")
