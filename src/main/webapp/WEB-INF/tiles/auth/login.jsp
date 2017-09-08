@@ -30,7 +30,7 @@
   				<div class="panel-body" style="text-align: center">
 		            <form action="${openIdUrl}" method="post" target="_top">
 		            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		            	<input id="openid_identifier" name="openid_identifier" maxlength="100" type="hidden" value="http://steamcommunity.com/openid" />
+		            	<input id="openid_identifier" name="openid_identifier" maxlength="100" type="hidden" value="https://steamcommunity.com/openid" />
 		            	<input type="image" src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_large_border.png">
 		            </form>
 	            </div>
