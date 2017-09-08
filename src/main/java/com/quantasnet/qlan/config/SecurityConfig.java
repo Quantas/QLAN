@@ -66,6 +66,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .rememberMeServices(rememberMeServices());
 
 		http.csrf();
+
+		http.headers()
+			.httpStrictTransportSecurity()
+			.cacheControl()
+			.frameOptions()
+			.xssProtection();
 	}
 	
 	@Autowired
