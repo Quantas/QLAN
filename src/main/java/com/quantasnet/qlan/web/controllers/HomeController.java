@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.quantasnet.qlan.domain.Lan;
 import com.quantasnet.qlan.service.LanService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class HomeController {
 
@@ -28,8 +30,8 @@ public class HomeController {
 	}
 	
 	@ModelAttribute("currentLans")
-	public Set<Lan> currentLan(@RequestHeader("x-forwarded-proto") final String protoForward) {
-		LOG.info("X-FORWARDED-PROTO = {}", protoForward);
+	public Set<Lan> currentLan(@RequestHeader("x-forwarded-proto") final String protoForward, final HttpServletRequest request) {
+		LOG.info("X-FORWARDED-PROTO = {} - {}", protoForward, request.getRequestURL());
 		return lanService.getActiveLans();
 	}
 	
